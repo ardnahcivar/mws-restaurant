@@ -47,6 +47,9 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
   padding: 25px;
   text-align: center;
   text-transform: uppercase;
+  position: fixed;
+  bottom:0;
+  width:100%;
 }
 /* ====================== Navigation ====================== */
 nav {
@@ -60,7 +63,7 @@ nav h1 {
 }
 nav h1 a {
   color: #fff;
-  font-size: 14pt;
+  font-size: 45pt;
   font-weight: 200;
   letter-spacing: 10px;
   text-transform: uppercase;
@@ -105,10 +108,12 @@ nav h1 a {
 }
 /* ====================== Restaurant Filtering ====================== */
 .filter-options {
-  width: 100%;
-  height: 50px;
-  background-color: #3397DB;
+  width: 95%;
+  height: 100px;
+  /* background-color: #3397DB; */
   align-items: center;
+  padding: 50px;
+  height:fit-content;
 }
 .filter-options h2 {
   color: white;
@@ -116,17 +121,18 @@ nav h1 a {
   font-weight: normal;
   line-height: 1;
   margin: 0 20px;
+  display: none;
 }
 .filter-options select {
   background-color: white;
   border: 1px solid #fff;
   font-family: Arial,sans-serif;
-  font-size: 11pt;
-  height: 35px;
+  font-size: 25pt;
+  height: 75px;
   letter-spacing: 0;
   margin: 10px;
   padding: 0 10px;
-  width: 200px;
+  width: 400px;
 }
 
 /* ====================== Restaurant Listing ====================== */
@@ -143,9 +149,10 @@ nav h1 a {
   font-family: Arial,sans-serif;
   margin: 15px;
   min-height: 380px;
-  padding: 0 30px 25px;
-  text-align: left;
-  width: 270px;
+  /* padding: 0 30px 25px; */
+  /* text-align: left; */
+  width: 600px;
+  display: inline-block;
 }
 #restaurants-list .restaurant-img {
   background-color: #ccc;

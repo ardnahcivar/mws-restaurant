@@ -18,11 +18,11 @@ initMap = () => {
     } else {      
       self.newMap = L.map('map', {
         center: [restaurant.latlng.lat, restaurant.latlng.lng],
-        zoom: 16,
+        zoom: 30,
         scrollWheelZoom: false
       });
       L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.jpg70?access_token={mapboxToken}', {
-        mapboxToken: '<your MAPBOX API KEY HERE>',
+        mapboxToken: 'pk.eyJ1IjoicmF2aWNoYW5kcmEtYmhhbmFnZSIsImEiOiJjamlndGl6ajIwbW0zM3FvODFwZWFoZ2ZqIn0.DCkNZCX48Zc-4tIXKS8krA',
         maxZoom: 18,
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
           '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
