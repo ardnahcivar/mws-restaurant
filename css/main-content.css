@@ -1,0 +1,24 @@
+.main-content{
+    overflow-y: scroll;
+}
+
+#map-container{
+    padding: 0.5em;
+}
+
+#map{
+    height: 45vh;
+}
+
+
+.filter-options{
+    text-align: center;
+    display: inline;
+}
+
+.filter-options h2{
+    display: inline;
+}
+#neighborhoods-select,#cuisines-select{
+    font-size: 2em;
+}
