@@ -147,9 +147,9 @@ resetRestaurants = (restaurants) => {
   ul.innerHTML = '';
 
   // Remove all map markers
-  if (self.markers) {
-    self.markers.forEach(marker => marker.remove());
-  }
+  // if (self.markers) {
+  //   self.markers.forEach(marker => marker.remove());
+  // }
   self.markers = [];
   self.restaurants = restaurants;
 }
@@ -188,11 +188,13 @@ createRestaurantHTML = (restaurant) => {
   address.innerHTML = restaurant.address;
   li.append(address);
 
-  const more = document.createElement('a');
-  more.innerHTML = 'View Details';
-  more.href = DBHelper.urlForRestaurant(restaurant);
-  li.append(more)
-
+  // const more = document.createElement('a');
+  // more.innerHTML = 'View Details';
+  // more.href = DBHelper.urlForRestaurant(restaurant);
+  // li.append(more)
+  li.onclick = () => {
+    window.location.href = DBHelper.urlForRestaurant(restaurant);         
+  }
   return li
 }
 

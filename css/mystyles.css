@@ -1,6 +1,6 @@
 :root{
-    --font-color:black;
-    --hf-background:black;
+    --font-color:white;
+    --hf-background:#232323;
     --hf-font-color:white;
 }
 
@@ -13,7 +13,7 @@ html{
     line-height: 20px;
 }
 body{
-    margin:0px;
+    margin:0px;  
 }
 
 body main{
@@ -22,6 +22,7 @@ body main{
     top:8vh;
     height: 86vh;
     width: 100%;
+    
 }
 .header{
     position: fixed;

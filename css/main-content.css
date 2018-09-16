@@ -1,9 +1,14 @@
 .main-content{
-    overflow-y: scroll;
+    overflow-y: scroll;    
+    /* padding: 0.5em; */
+}
+
+.main-content section{
+    padding: 0.5em;
 }
 
 #map-container{
-    padding: 0.5em;
+    /* padding: 0.5em; */
 }
 
 #map{
@@ -13,12 +18,55 @@
 
 .filter-options{
     text-align: center;
-    display: inline;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background: #2D2E33; */
+    /* padding: 0.5em 0;     */
 }
 
-.filter-options h2{
-    display: inline;
-}
-#neighborhoods-select,#cuisines-select{
+.filter-options select{
+    /* display: inline; */
+    /* border-radius: 0.5em; */
     font-size: 2em;
+    /* height:  */
+}
+
+.filter-options * {
+    margin:0 2em;
+}
+
+#restaurants-list{
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#restaurants-list li {
+    display: inline-block;
+    background: #fff;
+    border-radius: 2px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    cursor: pointer;
+}
+
+#restaurants-list li img {
+    width: 100%;  
+}
+
+#restaurants-list li p {
+    margin:0;
+    text-align: center;
+    padding:2px;
+    background-color: #e6e6e6;
+    /* border-bottom: 1px solid #e6e6e6; */
+}
+
+#restaurants-list li h1 {
+    margin:0;  
+    text-align: center;
+    padding:2px;
+    background-color: #e6e6e6;
+    /* border-bottom: 1px solid #e6e6e6; */
 }

@@ -4,10 +4,8 @@
 */
 
 @media (min-width: 1281px) {
-  
-
-    
-  }
+  @import url('./css/desktop.css');
+}
   
   /* 
     ##Device = Laptops, Desktops
@@ -15,8 +13,7 @@
   */
   
   @media (min-width: 1025px) and (max-width: 1280px) {
-    
-    
+    @import url('./css/desktop.css');
   }
   
   /* 
@@ -25,8 +22,7 @@
   */
   
   @media (min-width: 768px) and (max-width: 1024px) {
-    
-    
+    @import url('./css/desktop.css');  
   }
   
   /* 
@@ -35,8 +31,7 @@
   */
   
   @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
-    
-    
+    @import url('./css/desktop.css');
   }
   
   /* 
@@ -45,9 +40,7 @@
   */
   
   @media (min-width: 481px) and (max-width: 767px) {
-    
-
-    
+    @import url('./css/desktop.css');
   }
   
   /* 
@@ -56,8 +49,5 @@
   */
   
   @media (min-width: 320px) and (max-width: 480px) {
-    .header a {
-        font-size: 1em;
-    }
-    
+    @import url('./css/mobile.css');
   }

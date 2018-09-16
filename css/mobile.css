@@ -1,0 +1,15 @@
+.header a {
+    font-size: 1em;
+}
+
+#restaurants-list{
+    justify-content: center;
+}
+#restaurants-list li {
+    width: 90vw;
+    margin:0 0 1em;
+}
+
+#restaurants-list li img {
+    height: 30vh; 
+}

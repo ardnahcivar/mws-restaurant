@@ -1,0 +1,14 @@
+#restaurants-list{
+    justify-content: space-evenly;
+}
+#restaurants-list li {
+    height: 36vh;
+    width: 20vw;
+    margin: 2em;
+}
+
+#restaurants-list li img {
+    height: 25vh; 
+}
+
+
