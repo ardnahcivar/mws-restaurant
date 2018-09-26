@@ -103,16 +103,16 @@ fillCuisinesHTML = (cuisines = self.cuisines) => {
 //   updateRestaurants();
 // }
 window.initMap = () => {
-  let loc = {
-    lat: 40.722216,
-    lng: -73.987501
-  };
-  self.map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 12,
-    center: loc,
-    scrollwheel: false
-  });
-  updateRestaurants();
+    let loc = {
+      lat: 40.722216,
+      lng: -73.987501
+    };
+    self.map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 12,
+      center: loc,
+      scrollwheel: false
+    });
+    updateRestaurants();  
 }
 
 /**
@@ -227,7 +227,7 @@ addMarkersToMap = (restaurants = self.restaurants) => {
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function () {
-    navigator.serviceWorker.register('/js/service-worker.js').then(function (registration) {
+    navigator.serviceWorker.register('service-worker.js').then(function (registration) {
       // Registration was successful
       console.log('ServiceWorker registration successful with scope: ', registration.scope);
     }, function (err) {
@@ -246,13 +246,12 @@ function loadMapScript() {
         return;
       }
       response.json().then(function (data) {
-        alert(data);
-        // let head = document.getElementsByTagName('head')[0];
-        // let script = document.createElement('script');
-        // script.type = "application/javascript";
-        // script.charset = "utf-8";
-        // script.src = "";
-        // head.appendChild(script);
+        let head = document.getElementsByTagName('head')[0];
+        let script = document.createElement('script');
+        script.type = "application/javascript";
+        script.charset = "utf-8";
+        script.src = "https://maps.googleapis.com/maps/api/js?key="+data.key+"&libraries=places&callback=initMap";
+        head.appendChild(script);
       })
     })
     .catch(function (err) {

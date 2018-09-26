@@ -1,11 +1,11 @@
 let CACHE_NAME = 'resto-view-v1';
 let urlsToCache = [
-    '/',
     '/css/main-content.css',
     '/css/mystyles.css',
     '/css/media-query.css',
     '/css/desktop.css',
-    '/css/mobile.css'
+    '/css/mobile.css',
+    '/data/restaurants.json'
 ]
 
 self.addEventListener('install',function(event){
@@ -17,14 +17,13 @@ self.addEventListener('install',function(event){
     )
 })
 
-self.addEventListener('fetch',function(event){
-    console.log(event.request);
+self.addEventListener('fetch', function(event){
+    console.log("match"+event.request);
     event.respondWith(
         caches.match(event.request)
         .then(function(response){
             console.log(response);
             if(response){
-                debugger;
                 return response;
             }else{
                 return fetch(event.request);
