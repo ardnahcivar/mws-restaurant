@@ -103,16 +103,16 @@ fillCuisinesHTML = (cuisines = self.cuisines) => {
 //   updateRestaurants();
 // }
 window.initMap = () => {
-    let loc = {
-      lat: 40.722216,
-      lng: -73.987501
-    };
-    self.map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 12,
-      center: loc,
-      scrollwheel: false
-    });
-    updateRestaurants();  
+  let loc = {
+    lat: 40.722216,
+    lng: -73.987501
+  };
+  self.map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 12,
+    center: loc,
+    scrollwheel: false
+  });
+  updateRestaurants();
 }
 
 /**
@@ -238,7 +238,7 @@ if ('serviceWorker' in navigator) {
 }
 
 
-function loadMapScript() {
+loadMapScript = () => {
   fetch('./configs/credentials.json')
     .then(function (response) {
       if (response.status != 200) {
@@ -250,7 +250,7 @@ function loadMapScript() {
         let script = document.createElement('script');
         script.type = "application/javascript";
         script.charset = "utf-8";
-        script.src = "https://maps.googleapis.com/maps/api/js?key="+data.key+"&libraries=places&callback=initMap";
+        script.src = "https://maps.googleapis.com/maps/api/js?key=" + data.key + "&libraries=places&callback=initMap";
         head.appendChild(script);
       })
     })

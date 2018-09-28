@@ -1,20 +1,14 @@
 .main-content{
     overflow-y: scroll;    
-    /* padding: 0.5em; */
 }
 
 .main-content section{
-    padding: 0.5em;
-}
-
-#map-container{
-    /* padding: 0.5em; */
+    /*padding: 0.5em;*/
 }
 
 #map{
     height: 45vh;
 }
-
 
 .filter-options{
     text-align: center;

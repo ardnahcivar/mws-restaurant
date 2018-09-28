@@ -4,8 +4,9 @@ var newMap;
 /**
  * Initialize map as soon as the page is loaded.
  */
-document.addEventListener('DOMContentLoaded', (event) => {  
-  initMap();
+document.addEventListener('DOMContentLoaded', (event) => {
+  loadMapScript();
+  window.initMap();
 });
 
 /**
@@ -15,7 +16,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 //   fetchRestaurantFromURL((error, restaurant) => {
 //     if (error) { // Got an error!
 //       console.error(error);
-//     } else {      
+//     } else {
 //       self.newMap = L.map('map', {
 //         center: [restaurant.latlng.lat, restaurant.latlng.lng],
 //         zoom: 30,
@@ -25,17 +26,17 @@ document.addEventListener('DOMContentLoaded', (event) => {
 //         mapboxToken: 'pk.eyJ1IjoicmF2aWNoYW5kcmEtYmhhbmFnZSIsImEiOiJjamlndGl6ajIwbW0zM3FvODFwZWFoZ2ZqIn0.DCkNZCX48Zc-4tIXKS8krA',
 //         maxZoom: 18,
 //         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
-//           '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-//           'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-//         id: 'mapbox.streets'    
+//         '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+//         'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+//         id: 'mapbox.streets'
 //       }).addTo(newMap);
 //       fillBreadcrumb();
 //       DBHelper.mapMarkerForRestaurant(self.restaurant, self.newMap);
 //     }
 //   });
-// }  
- 
- window.initMap = () => {
+// }
+
+window.initMap = () => {
   fetchRestaurantFromURL((error, restaurant) => {
     if (error) { // Got an error!
       console.error(error);
@@ -49,7 +50,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
       DBHelper.mapMarkerForRestaurant(self.restaurant, self.map);
     }
   });
-} 
+}
 
 /**
  * Get current restaurant from page URL.
@@ -106,6 +107,22 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
  */
 fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => {
   const hours = document.getElementById('restaurant-hours');
+
+  const tablehead = document.createElement('tr');
+
+  const dayhead = document.createElement('th');
+  dayhead.innerHTML = "Day";
+
+
+  tablehead.appendChild(dayhead);
+
+  const dayhead1 = document.createElement('th');
+  dayhead1.innerHTML = "Status";
+
+  tablehead.appendChild(dayhead1);
+
+  hours.appendChild(tablehead);
+
   for (let key in operatingHours) {
     const row = document.createElement('tr');
 
@@ -170,7 +187,7 @@ createReviewHTML = (review) => {
 /**
  * Add restaurant name to the breadcrumb navigation menu
  */
-fillBreadcrumb = (restaurant=self.restaurant) => {
+fillBreadcrumb = (restaurant = self.restaurant) => {
   const breadcrumb = document.getElementById('breadcrumb');
   const li = document.createElement('li');
   li.innerHTML = restaurant.name;
