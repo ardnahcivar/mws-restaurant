@@ -9,6 +9,7 @@ let urlsToCache = [
     '/css/media-query.css',
     '/css/desktop.css',
     '/css/mobile.css',
+    '/css/resto-info.css',
     '/data/restaurants.json',
 ]
 

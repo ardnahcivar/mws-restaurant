@@ -13,3 +13,82 @@
 #restaurants-list li img {
     height: 30vh; 
 }
+
+/* restaurant info  */
+#restaurant-container, #reviews-container{
+    display: block;
+    margin: 0 2vw;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+.restaurant-info{
+    /* background: antiquewhite; */
+    border-radius: 2%;
+}
+
+#restaurant-img{
+    display: block;
+    width: 85%;
+    margin: 0 auto;
+}
+.restaurant-tab{
+    display: block;
+    width:100%;
+    margin: 1em 0;
+}
+#restaurant-hours{
+    border-collapse: collapse;
+    border: 1px solid;
+    width:85%;
+    text-align: center;
+}
+
+.table-head {
+    background: black;
+    color: white;
+    border: 1px solid black;
+}
+
+#restaurant-cuisine, #restaurant-address{
+    text-align: center;
+}
+
+#reviews-container{
+
+}
+#reviews-list{
+    list-style: none;
+    padding: 0 1em;
+}
+
+#reviews-list li{
+    margin: 2em 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.review{
+    background: black;
+    color:white;
+}
+
+.review-name{
+    display: inline-block;
+}
+
+.review-date{
+    display: inline-block;
+    float: right;
+}
+
+.review p{
+    margin: 0;
+    padding:0 0.5em;
+    color: white;
+}
+
+.review-comments{
+    margin: 0;
+    padding:0.2em;
+}
+
