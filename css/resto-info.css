@@ -1,0 +1,107 @@
+#restaurant-container, #reviews-container{
+    margin:10vh 10vw;
+}
+
+#restaurant-info{
+
+}
+#restaurant-name{
+    color: #111111;
+    font-family: Roboto, Arial, sans-serif;
+    font-weight: 500;
+    line-height: 20px;
+}
+#restaurant-img{
+    width: 50vw;
+    height:50vh;
+    display: inline-block;
+}
+
+
+.restaurant-tab{
+    display: inline-block;
+    height: 50vh;
+    width: 25vw;
+    margin: 0 auto;
+    position: relative;
+}
+
+#restaurant-hours{
+    border-collapse: collapse;
+    position: absolute;
+    width:20vw;
+    top: 50%;
+    transform: translateY(-50%);
+    margin:0 10%;
+    text-align: center;
+    font-size: 14px;
+    font-family: Roboto, Arial, sans-serif;
+    font-weight: 500;
+    line-height: 16px;
+    color: #111111;
+}
+
+.table-head{
+    background: black;
+    color: white;
+}
+#reviews-container h2{
+    color: #111111;
+    font-family: Roboto, Arial, sans-serif;
+    font-weight: 500;
+    line-height: 20px;
+}
+#restaurant-cuisine,#restaurant-address{
+    font-size: 14px;
+    font-family: Roboto, Arial, sans-serif;
+    font-weight: 500;
+    line-height: 16px;
+    color: #111111;
+}
+#reviews-list{
+    list-style: none;
+}
+
+#reviews-list li{
+    border-bottom: 1px solid rgba(17,17,17,0.1);
+    margin: 2em 0;
+    font-family: Roboto, Arial, sans-serif;
+    color:#111111;
+}
+
+.review{
+    /* background: black; */
+    /* color: white; */
+}
+.review-name,.review-rated{
+    font-weight: 500;
+    line-height: 18px;
+    font-size: 13px 
+}
+
+.review-name, .review-date, .review-rated{
+    display: inline-block;
+    margin: 0;
+    padding:1em;
+}
+
+.review-rated{
+    color: #00E676;
+}
+
+.review-date{
+    float: right;
+    line-height: 18px;
+    font-size: 13px;
+    color: rgba(17,17,17,0.6);
+    font-weight: 400;
+    font-family: Roboto, Arial, sans-serif;
+}
+
+.review-comments{
+    margin: 0;
+    padding: 1em;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+}   
