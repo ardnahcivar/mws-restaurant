@@ -170,20 +170,32 @@ createReviewHTML = (review) => {
   const reviews = document.createElement('div');
   reviews.className = 'review';
 
+  const image = document.createElement('img');
+  image.src = "https://randomuser.me/api/portraits/men/"+Math.floor(Math.random() * 100)+".jpg";
+  image.className = 'review-user';
+  reviews.appendChild(image);
+
   const name = document.createElement('p');
   name.className = 'review-name';
   name.innerHTML = review.name;
   reviews.appendChild(name);
+
+  const rating = document.createElement('p');
+  rating.className = 'review-rated';
+  // rating.innerHTML = `Rating: ${review.rating}`;
+  reviews.appendChild(rating);
+  for(let i=0;i<review.rating;i++){
+    let span = document.createElement('span');
+    span.classList = ['fa fa-start checked'];
+    reviews.appendChild(span);
+  }
 
   const date = document.createElement('p');
   date.className = 'review-date';
   date.innerHTML = review.date;
   reviews.appendChild(date);
 
-  const rating = document.createElement('p');
-  rating.className = 'review-rated';
-  rating.innerHTML = `Rating: ${review.rating}`;
-  reviews.appendChild(rating);
+
 
   li.appendChild(reviews);
 

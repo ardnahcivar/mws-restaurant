@@ -73,6 +73,14 @@
     /* background: black; */
     /* color: white; */
 }
+
+.review-user{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;    
+    vertical-align: middle;
+}
+
 .review-name,.review-rated{
     font-weight: 500;
     line-height: 18px;
@@ -83,6 +91,7 @@
     display: inline-block;
     margin: 0;
     padding:1em;
+    vertical-align: middle;
 }
 
 .review-rated{
