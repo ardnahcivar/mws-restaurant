@@ -22,7 +22,8 @@
   */
   
   @media (min-width: 768px) and (max-width: 1024px) {
-    @import url('./css/desktop.css');  
+    @import url('./css/tablets.css');
+
   }
   
   /* 

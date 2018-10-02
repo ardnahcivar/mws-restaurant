@@ -1,0 +1,61 @@
+.header{
+    height: 6vh;
+}
+
+body main{
+    top:6vh;
+    height: 90vh;
+}
+
+.footer{
+    height: 4vh;
+}
+
+#map{
+    height: 35vh;
+}
+
+#restaurant-container, #reviews-container {
+    margin: 5vh 10vw;
+}
+
+.filter-options{
+    height: 6vh;
+}
+
+.filter-options select,.filter-btn{
+    height: 4vh;
+}
+
+#restaurants-list{
+    justify-content: center;
+}
+
+#restaurants-list li {
+    height: 20vh;
+    width: 36vw;
+    margin: 2em;
+}
+
+#restaurants-list li img {
+    height: 15vh; 
+}
+
+#restaurant-img{
+    width: 100%;
+    height: 35vh;
+}
+.restaurant-tab{
+    display: flex;
+    position:inherit;
+    justify-content: center;
+    width: 100%;
+    height: inherit;
+    margin: 1em;
+}
+
+#restaurant-hours{
+    width: 60%;
+    position: inherit;
+    transform: none;
+}

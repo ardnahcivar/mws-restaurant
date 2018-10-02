@@ -10,7 +10,6 @@ var markers = []
 document.addEventListener('DOMContentLoaded', (event) => {
   loadMapScript();
   // initMap(); // added
-  animateTitle();
   fetchNeighborhoods();
   fetchCuisines();
 });
@@ -29,18 +28,6 @@ fetchNeighborhoods = () => {
   });
 }
 
-
-window.animateTitle = () => {
-
-  let colors = ['#d50000', '#c51162', '#aa00ff', '#6200ea', '#304ffe',
-    '#2962ff', '#0091ea', '#00b8d4', '#00bfa5', '#00c853',
-    '#64dd17', '#aeea00', '#ffd600 ', '#ffab00', '#ff6d00',
-    '#dd2c00', '#3e2723', '#212121', '#263238', '#000000'];
-  let title = document.getElementById('app-title');
-  setInterval(() => {
-    title.style.color = colors[Math.floor((Math.random() * 20) + 1) - 1];
-  }, 5000)
-}
 /**
  * Set neighborhoods HTML.
  */
