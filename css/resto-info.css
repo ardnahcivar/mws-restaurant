@@ -10,6 +10,7 @@
     font-family: Roboto, Arial, sans-serif;
     font-weight: 500;
     line-height: 20px;
+    padding: 0.5em;
 }
 #restaurant-img{
     width: 50vw;
@@ -50,6 +51,8 @@
     font-family: Roboto, Arial, sans-serif;
     font-weight: 500;
     line-height: 20px;
+    padding: 0.5em;
+    /* border: 1px solid black; */
 }
 #restaurant-cuisine,#restaurant-address{
     font-size: 14px;
@@ -57,6 +60,7 @@
     font-weight: 500;
     line-height: 16px;
     color: #111111;
+    padding: 0 1em;
 }
 #reviews-list{
     list-style: none;

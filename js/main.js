@@ -30,7 +30,7 @@ fetchNeighborhoods = () => {
 }
 
 
-animateTitle = () => {
+window.animateTitle = () => {
 
   let colors = ['#d50000', '#c51162', '#aa00ff', '#6200ea', '#304ffe',
     '#2962ff', '#0091ea', '#00b8d4', '#00bfa5', '#00c853',
@@ -171,9 +171,10 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
  */
 createRestaurantHTML = (restaurant) => {
   const li = document.createElement('li');
-
+  li.tabIndex = 2;
   const image = document.createElement('img');
   image.className = 'restaurant-img';
+  image.alt = `${restaurant.name}-picture`;
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
   li.append(image);
 

@@ -5,10 +5,22 @@ var newMap;
  * Initialize map as soon as the page is loaded.
  */
 document.addEventListener('DOMContentLoaded', (event) => {
-  loadMapScript();
+  // loadMapScript();
+  animateTitle();
   window.initMap();
 });
 
+animateTitle = () => {
+
+  let colors = ['#d50000', '#c51162', '#aa00ff', '#6200ea', '#304ffe',
+    '#2962ff', '#0091ea', '#00b8d4', '#00bfa5', '#00c853',
+    '#64dd17', '#aeea00', '#ffd600 ', '#ffab00', '#ff6d00',
+    '#dd2c00', '#3e2723', '#212121', '#263238', '#000000'];
+  let title = document.getElementById('app-title-info');
+  setInterval(() => {
+    title.style.color = colors[Math.floor((Math.random() * 20) + 1) - 1];
+  }, 5000)
+}
 /**
  * Initialize leaflet map
  */
@@ -88,7 +100,8 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   address.innerHTML = restaurant.address;
 
   const image = document.getElementById('restaurant-img');
-  image.className = 'restaurant-img'
+  image.className = 'restaurant-img';
+  image.alt = `${restaurant.name}-picture`;
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
 
   const cuisine = document.getElementById('restaurant-cuisine');
@@ -171,7 +184,8 @@ createReviewHTML = (review) => {
   reviews.className = 'review';
 
   const image = document.createElement('img');
-  image.src = "https://randomuser.me/api/portraits/men/"+Math.floor(Math.random() * 100)+".jpg";
+  image.src = `https://randomuser.me/api/portraits/men/${Math.floor(Math.random() * 100)}.jpg`;
+  image.alt = `${review.name}-picture`;
   image.className = 'review-user';
   reviews.appendChild(image);
 
@@ -182,20 +196,18 @@ createReviewHTML = (review) => {
 
   const rating = document.createElement('p');
   rating.className = 'review-rated';
-  // rating.innerHTML = `Rating: ${review.rating}`;
+  rating.innerHTML = `Rating: ${review.rating}`;
   reviews.appendChild(rating);
-  for(let i=0;i<review.rating;i++){
-    let span = document.createElement('span');
-    span.classList = ['fa fa-start checked'];
-    reviews.appendChild(span);
-  }
+  // for(let i=0;i<review.rating;i++){
+  //   let span = document.createElement('span');
+  //   span.classList = ['fa fa-start checked'];
+  //   reviews.appendChild(span);
+  // }
 
   const date = document.createElement('p');
   date.className = 'review-date';
   date.innerHTML = review.date;
   reviews.appendChild(date);
-
-
 
   li.appendChild(reviews);
 
