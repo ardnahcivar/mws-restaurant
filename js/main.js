@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
   // initMap(); // added
   fetchNeighborhoods();
   fetchCuisines();
+  updateRestaurants();
 });
 
 /**
@@ -227,22 +228,29 @@ if ('serviceWorker' in navigator) {
 
 
 loadMapScript = () => {
-  fetch('./configs/credentials.json')
-    .then(function (response) {
-      if (response.status != 200) {
-        console.log('Error loading the json file', response.status);
-        return;
-      }
-      response.json().then(function (data) {
-        let head = document.getElementsByTagName('head')[0];
-        let script = document.createElement('script');
-        script.type = "application/javascript";
-        script.charset = "utf-8";
-        script.src = "https://maps.googleapis.com/maps/api/js?key=" + data.key + "&libraries=places&callback=initMap";
-        head.appendChild(script);
-      })
-    })
-    .catch(function (err) {
-      console.log('Got a error', err);
-    })
+  let head = document.getElementsByTagName('head')[0];
+  let script = document.createElement('script');
+  script.type = "application/javascript";
+  script.charset = "utf-8";
+  let key = "AIzaSyBT3oY7Gg7TNAfPZ5WEraGFmWU1sTdomdA";
+  script.src = "https://maps.googleapis.com/maps/api/js?key=" + key + "&libraries=places&callback=initMap";
+  head.appendChild(script);
+  // fetch('./configs/credentials.json')
+  //   .then(function (response) {
+  //     if (response.status != 200) {
+  //       console.log('Error loading the json file', response.status);
+  //       return;
+  //     }
+  //     response.json().then(function (data) {
+  //       let head = document.getElementsByTagName('head')[0];
+  //       let script = document.createElement('script');
+  //       script.type = "application/javascript";
+  //       script.charset = "utf-8";
+  //       script.src = "https://maps.googleapis.com/maps/api/js?key=" + data.key + "&libraries=places&callback=initMap";
+  //       head.appendChild(script);
+  //     })
+  //   })
+  //   .catch(function (err) {
+  //     console.log('Got a error', err);
+  //   })
 }
