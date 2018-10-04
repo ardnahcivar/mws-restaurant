@@ -19,11 +19,11 @@ body{
 body main{
     /* margin:0 8px; */
     position: fixed;
-    top:8vh;
+    top:13vh;
     height: 86vh;
     width: 100%;
-    
 }
+
 .header{
     position: fixed;
     top:0;
@@ -43,10 +43,48 @@ body main{
     text-decoration: none;
     color:var(--hf-font-color);
     text-transform: uppercase;
-    font-size: 2em;
+    /* font-size: 2em; */
     letter-spacing: 0.5em;
 }
 
+
+
+ul.breadcrumb {
+    padding: 0.5em 1em;
+    list-style: none;
+    background-color: #eee;
+    position:  fixed;
+    height: 3vh;
+    top:8vh;
+    left: 0;
+    margin: 0;
+    width: 100%;
+}
+
+/* Display list items side by side */
+ul.breadcrumb li {
+    display: inline;
+    font-size: 18px;
+}
+
+/* Add a slash symbol (/) before/behind each list item */
+ul.breadcrumb li+li:before {
+    padding: 8px;
+    color: black;
+    content: "/\00a0";
+}
+
+/* Add a color to all links inside the list */
+ul.breadcrumb li a {
+    color: #0275d8;
+    text-decoration: none;
+}
+
+/* Add a color on mouse-over */
+ul.breadcrumb li a:hover {
+    color: #01447e;
+    text-decoration: underline;
+}
 
 footer{
     position: fixed;

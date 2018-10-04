@@ -84,7 +84,7 @@
     color:rgba(17, 17, 17, 0.8);
 }
 
-#restaurants-list li h1 {
+#restaurants-list li h2 {
     margin:0;  
     text-align: center;
     padding:2px;
