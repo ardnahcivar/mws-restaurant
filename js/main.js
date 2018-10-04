@@ -4,16 +4,21 @@ let restaurants,
 var newMap
 var markers = []
 
+
+bootApplication = () => {
+  fetchNeighborhoods();
+  fetchCuisines();
+  updateRestaurants();
+}
+
 /**
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
  */
 document.addEventListener('DOMContentLoaded', (event) => {
-  loadMapScript();
+  loadMapScript(bootApplication);
   // initMap(); // added
-  fetchNeighborhoods();
-  fetchCuisines();
-  updateRestaurants();
 });
+
 
 /**
  * Fetch all neighborhoods and set their HTML.
@@ -227,14 +232,26 @@ if ('serviceWorker' in navigator) {
 }
 
 
-loadMapScript = () => {
+function loadMapScript(callback) {
   let head = document.getElementsByTagName('head')[0];
   let script = document.createElement('script');
-  script.type = "application/javascript";
+  script.type = "text/javascript";
   script.charset = "utf-8";
   let key = "AIzaSyBT3oY7Gg7TNAfPZ5WEraGFmWU1sTdomdA";
   script.src = "https://maps.googleapis.com/maps/api/js?key=" + key + "&libraries=places&callback=initMap";
   head.appendChild(script);
+  if(script.readyState){
+    script.onreadystatechange = function(){
+      if(script.readyState == "loaded" || script.readyState == "complete"){
+        script.onreadystatechange = null;
+        callback();
+      };
+    };
+  }else{
+    script.onload = function(){
+      callback();
+    };
+  };
   // fetch('./configs/credentials.json')
   //   .then(function (response) {
   //     if (response.status != 200) {
@@ -248,6 +265,7 @@ loadMapScript = () => {
   //       script.charset = "utf-8";
   //       script.src = "https://maps.googleapis.com/maps/api/js?key=" + data.key + "&libraries=places&callback=initMap";
   //       head.appendChild(script);
+  //       callback();
   //     })
   //   })
   //   .catch(function (err) {

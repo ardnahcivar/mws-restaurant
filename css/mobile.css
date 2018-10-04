@@ -1,3 +1,6 @@
+.header, .footer{
+    border-radius:0.3em;
+}
 .header a {
     font-size: 1em;
 }

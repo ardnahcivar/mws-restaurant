@@ -5,8 +5,6 @@ var newMap;
  * Initialize map as soon as the page is loaded.
  */
 document.addEventListener('DOMContentLoaded', (event) => {
-  loadMapScript();
-  window.initMap();
 });
 
 /**
@@ -36,7 +34,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 //   });
 // }
 
-window.initMap = () => {
+initMap = () => {
   fetchRestaurantFromURL((error, restaurant) => {
     if (error) { // Got an error!
       console.error(error);

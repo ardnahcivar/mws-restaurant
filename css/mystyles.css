@@ -19,9 +19,13 @@ body{
 body main{
     /* margin:0 8px; */
     position: fixed;
-    top:13vh;
+    top:8vh;
     height: 86vh;
     width: 100%;
+}
+
+main.resto-view{
+    top:13vh;
 }
 
 .header{
@@ -36,7 +40,7 @@ body main{
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    font-family: 'Monoton', cursive;
+    /* font-family: 'Monoton', cursive; */
 }
 
 .header a {
@@ -52,12 +56,11 @@ body main{
 ul.breadcrumb {
     padding: 0.5em 1em;
     list-style: none;
-    background-color: #eee;
     position:  fixed;
     height: 3vh;
     top:8vh;
     left: 0;
-    margin: 0;
+    margin: 0 auto;
     width: 100%;
 }
 
