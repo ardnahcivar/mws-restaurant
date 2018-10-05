@@ -30,17 +30,17 @@ self.addEventListener('fetch', function (event) {
                     return response;
                 }
                 let fetchReq = event.request.clone();
-                return fetch(fetchReq).then(function(response){
-                    if(!response || response.status != 200 || response.type !== 'basic'){
+                return fetch(fetchReq).then(function (response) {
+                    if (!response || response.status != 200 || response.type !== 'basic') {
                         return response;
                     }
                     let responseToCache = response.clone();
                     caches.open(CACHE_NAME)
-                    .then(function(cache) {
-                        cache.put(event.request, responseToCache);
-                    });
+                        .then(function (cache) {
+                            cache.put(event.request, responseToCache);
+                        });
                     return response;
-                }) 
+                })
             })
     )
 })
