@@ -24,7 +24,7 @@
 </head>
 
 <body class="inside">
-  <header class="header">
+  <header role="banner" class="header">
       <a href="/" id="app-title"><h1>Restaurant Reviews</h1></a>
   </header>
   <!-- Beginning header -->
@@ -34,7 +34,7 @@
       <h1><a href="/"></a></h1>
     </nav>-->
   <!-- Beginning breadcrumb -->
-  <ul class="breadcrumb" id="breadcrumb">
+  <ul role="navigation" class="breadcrumb" id="breadcrumb" aria-label="navigation">
     <li><a href="/">Home</a></li>
   </ul>
   <!-- End breadcrumb -->
@@ -43,7 +43,7 @@
   <!-- End header -->
 
   <!-- Beginning main -->
-  <main class="main-content resto-view">
+  <main role="main" class="main-content resto-view">
     <!-- Beginning map -->
     <section id="map-container">
       <div id="map"></div>
@@ -64,14 +64,14 @@
     <!-- end restaurant -->
     <!-- Beginning reviews -->
     <section id="reviews-container">
-      <ul id="reviews-list"></ul>
+      <ul id="reviews-list" role="list" aria-label="Reviews List"></ul>
     </section>
     <!-- End reviews -->
   </main>
   <!-- End main -->
 
   <!-- Beginning footer -->
-  <footer class="footer">
+  <footer class="footer" role="contentinfo">
     Copyright (c) 2018 <a href="/"><strong>&nbsp Restaurant Reviews &nbsp</strong></a> All Rights Reserved.    
   </footer>
   <!-- End footer -->

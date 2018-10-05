@@ -21,20 +21,20 @@
     </header>
     <main class="main-content">
         <section id="map-container">
-            <div id="map"></div>
+            <div role="link" id="map" aria-label="Map, Locations of Restuarants"></div>
         </section>
         <section>
             <div class="filter-options">
                 <h2>Filter By</h2>
-                <select tabindex="1" id="neighborhoods-select" name="neighborhoods">
+                <select role="listbox" tabindex="0" id="neighborhoods-select" name="neighborhoods" aria-label="Choose the neighborhood">
                 <option value="all">All Neighborhoods</option>
                 </select>
-                <select tabindex="1" id="cuisines-select" name="cuisines">
+                <select role="listbox" tabindex="0" id="cuisines-select" name="cuisines" aria-label="Choose the Cuisine">
                 <option value="all">All Cuisines</option>
                 </select>
-                <button tabindex="1" class="filter-btn" onclick="updateRestaurants()">FILTER</button>
+                <button tabindex="0" class="filter-btn" onclick="updateRestaurants()" name="filter" aria-label="Search">Search</button>
             </div>
-            <ul id="restaurants-list"></ul>
+            <ul role="list" id="restaurants-list"></ul>
         </section>
     </main>
 

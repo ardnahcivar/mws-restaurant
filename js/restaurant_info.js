@@ -165,7 +165,7 @@ fillReviewsHTML = (reviews = self.restaurant.reviews) => {
  */
 createReviewHTML = (review) => {
   const li = document.createElement('li');
-  
+  li.setAttribute("role","listitem");
   const reviews = document.createElement('div');
   reviews.className = 'review';
 
