@@ -4,13 +4,47 @@ let restaurants,
 var newMap
 var markers = []
 
+const dbName = 'resto-view';
+const version = 1;
+const objectStoreNames = ['restaurants'];
 
 bootApplication = () => {
   fetchNeighborhoods();
-  fetchCuisines();
+  fetchCuisines(); 
   updateRestaurants();
 }
 
+navigator.serviceWorker.addEventListener('message',event => {
+  iDB(event)
+})
+
+iDB = (event)=>{
+  //IndexedDB 
+  if (('indexedDB' in window)) {     
+    let dbPromise = idb.open(`${dbName}-${version}`, 1, function(upgradeDb) {
+    console.log(`making a new object store ${objectStoreNames[0]}-${version}`);
+    if (!upgradeDb.objectStoreNames.contains(`${objectStoreNames[0]}-${version}`)) {
+      const store = upgradeDb.createObjectStore(`${objectStoreNames[0]}-${version}`);
+      console.log(event.data.msg);
+      store.put(event.data.msg,event.data.url);
+    }
+  });
+
+    dbPromise.then((db)=>{
+      const tx = db.transaction(`${objectStoreNames[0]}-${version}`,'readwrite'); 
+      console.log(event.data.msg);
+      console.log(event.data.url);
+      tx.objectStore(`${objectStoreNames[0]}-${version}`).put(event.data.msg,event.data.url);
+      return tx.complete;
+    })
+    .then(()=> console.log(`Transaction completed`))
+    .catch((error)=> console.log(`Transaction completed with error ${error}`));
+  
+  }
+  else { 
+  console.log('This browser doesn\'t support IndexedDB');
+  }
+}
 /**
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
  */
