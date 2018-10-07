@@ -1,7 +1,7 @@
 /**
  * Common database helper functions.
  */
-class DBHelper{
+class DBHelper {
 
   /**
    * Database URL.
@@ -12,7 +12,7 @@ class DBHelper{
     return `http://localhost:${port}`;
   }
 
-  static get RESTAURANTS_URL(){
+  static get RESTAURANTS_URL() {
     return `restaurants`;
   }
 
@@ -22,11 +22,11 @@ class DBHelper{
   static fetchRestaurants(callback) {
 
     DBHelper.getMethod(`${this.DATABASE_URL}/${this.RESTAURANTS_URL}`)
-    .then((restaurants) => {
-      callback(null,restaurants);
-    }).catch((error) => {
-      callback(error,null);
-    })
+      .then((restaurants) => {
+        callback(null, restaurants);
+      }).catch((error) => {
+        callback(error, null);
+      })
   }
 
   /**
@@ -35,11 +35,11 @@ class DBHelper{
   static fetchRestaurantById(id, callback) {
     // fetch all restaurants with proper error handling.
     DBHelper.getMethod(`${this.DATABASE_URL}/${this.RESTAURANTS_URL}/${id}`)
-    .then((restaurant) => {
-      callback(null,restaurant);
-    }).catch((error) => {
-      callback(error,null);
-    })
+      .then((restaurant) => {
+        callback(null, restaurant);
+      }).catch((error) => {
+        callback(error, null);
+      })
   }
 
   /**
@@ -160,33 +160,32 @@ class DBHelper{
   //     marker.addTo(newMap);
   //   return marker;
   // } 
-   static mapMarkerForRestaurant(restaurant, map) {
+  static mapMarkerForRestaurant(restaurant, map) {
     const marker = new google.maps.Marker({
       position: restaurant.latlng,
       title: restaurant.name,
       url: DBHelper.urlForRestaurant(restaurant),
       map: map,
-      animation: google.maps.Animation.DROP}
-    );
+      animation: google.maps.Animation.DROP
+    });
     return marker;
   }
-  
+
   /**
    * 
    * Fetch api wrapper 
    */
-   static async getMethod(url){
+  static async getMethod(url) {
     return fetch(url)
-    .then((response)=>{
-        if(response.status != 200){
-            throw new Error(`Fetch ERROR in get Method with status ${response.status}`);
+      .then((response) => {
+        if (response.status != 200) {
+          throw new Error(`Fetch ERROR in get Method with status ${response.status}`);
         }
         return response.json();
-    })
-    .catch((error)=>{
+      })
+      .catch((error) => {
         throw new Error(`Fetch ERROR in get Method`);
-    })
+      })
   }
 
 }
-
