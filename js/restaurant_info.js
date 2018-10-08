@@ -40,7 +40,7 @@ iDB = (event) => {
 /**
  * Initialize map as soon as the page is loaded.
  */
-document.addEventListener('DOMContentLoaded', (event) => {});
+document.addEventListener('DOMContentLoaded', (event) => { });
 
 /**
  * Initialize leaflet map
