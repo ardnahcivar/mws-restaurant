@@ -1,9 +1,9 @@
-let restaurant, newMap;
+let restaurant;
 
 
-const dbName = 'resto-view';
-const version = 1;
-const objectStoreNames = ['restaurants'];
+// const dbName = 'resto-view';
+// const version = 1;
+// const objectStoreNames = ['restaurants'];
 
 navigator.serviceWorker.addEventListener('message', event => {
 	iDB(event);

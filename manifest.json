@@ -1,0 +1,21 @@
+{
+    "short_name": "Resto Reviews",
+    "name": "Restaurant Reviews",
+    "icons": [
+      {
+        "src": "./img/resto-128.png",
+        "type": "image/png",
+        "sizes": "128x128"
+      },
+      {
+        "src": "./img/resto-512.png",
+        "type": "image/png",
+        "sizes": "512x512"
+      }
+    ],
+    "start_url": "http://localhost:8000/",
+    "background_color": "#ffffff",
+    "display": "standalone",
+    "scope": "/",
+    "theme_color": "#000000"
+  }
