@@ -7,6 +7,9 @@ const concat = require('gulp-concat');
 const babel = require('gulp-babel');
 const uglify = require('gulp-uglify-es').default;
 const sourcemaps = require('gulp-sourcemaps');
+const imagemin = require('gulp-imagemin');
+const imageminPngquant = require('imagemin-pngquant');
+const gzip = require('gulp-gzip');
 
 gulp.task('default', ['copy-html', 'copy-images', 'styles', 'scripts'], function () {
 	console.log('Started Gulp for development build');
@@ -57,6 +60,10 @@ gulp.task('copy-html', function () {
 
 gulp.task('copy-images', function () {
 	gulp.src('img/*')
+		.pipe(imagemin({
+			progressive: true,
+			use: [imageminPngquant()]
+		}))
 		.pipe(gulp.dest('./dist/img'));
 });
 
@@ -64,7 +71,7 @@ gulp.task('scripts', function () {
 	gulp.src('js/**/*.js')
 		// .pipe(sourcemaps.init())
 		// .pipe(sourcemaps.write('.'))
-		.pipe(babel({plugins:['@babel/transform-runtime']}))
+		//.pipe(babel({plugins:['@babel/transform-runtime']}))
 		.pipe(concat('app.min.js'))
 		.pipe(uglify())
 		.pipe(gulp.dest('./'));

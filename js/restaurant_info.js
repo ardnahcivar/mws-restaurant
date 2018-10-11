@@ -16,15 +16,12 @@ iDB = (event) => {
 			console.log(`making a new object store ${objectStoreNames[0]}-${version}`);
 			if (!upgradeDb.objectStoreNames.contains(`${objectStoreNames[0]}-${version}`)) {
 				const store = upgradeDb.createObjectStore(`${objectStoreNames[0]}-${version}`);
-				console.log(event.data.msg);
 				store.put(event.data.msg, event.data.url);
 			}
 		});
 
 		dbPromise.then((db) => {
 			const tx = db.transaction(`${objectStoreNames[0]}-${version}`, 'readwrite');
-			console.log(event.data.msg);
-			console.log(event.data.url);
 			tx.objectStore(`${objectStoreNames[0]}-${version}`).put(event.data.msg, event.data.url);
 			return tx.complete;
 		})
@@ -265,15 +262,3 @@ getParameterByName = (name, url) => {
 		return '';
 	return decodeURIComponent(results[2].replace(/\+/g, ' '));
 };
-
-if ('serviceWorker' in navigator) {
-	window.addEventListener('load', function () {
-		navigator.serviceWorker.register('service-worker.js').then(function (registration) {
-			// Registration was successful
-			console.log('ServiceWorker registration successful with scope: ', registration.scope);
-		}, function (err) {
-			// registration failed :(
-			console.log('ServiceWorker registration failed: ', err);
-		});
-	});
-}

@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Restaurant Reviews</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="manifest" href="/manifest.json">
+    <link rel="manifest" href="./manifest.json">
     <meta name="theme-color" content="#000000">
     <link rel="stylesheet" href="./css/mystyles.css">
     <link rel="stylesheet" href="./css/media-query.css">
@@ -44,11 +44,21 @@
     <footer class="footer">
         Copyright (c) 2018 <a href="/"><strong>&nbsp Restaurant Reviews &nbsp</strong></a> All Rights Reserved.
     </footer>
+    <!-- Google Maps -->
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBT3oY7Gg7TNAfPZ5WEraGFmWU1sTdomdA&libraries=places&callback=initMap"></script>
+  <!-- End scripts -->
     <script type="application/javascript" charset="utf-8" src="./app.min.js"></script>
-    <!-- <script type="application/javascript" charset="utf-8" src="js/dbhelper.js"></script>
-    <script type="application/javascript" charset="utf-8" src="js/main.js"></script>
-    <script type="application/javascript" charset="utf-8" src="js/idb.js"></script> -->
-
+        <script>
+            initMap = () => {
+	            let loc = {
+		        lat: 40.722216,
+		        lng: -73.987501
+	            };
+	            map = new google.maps.Map(document.getElementById('map'), {
+		        zoom: 12,center: loc,scrollwheel: false });
+	            updateRestaurants();
+            };
+        </script>
 </body>
 
 </html>

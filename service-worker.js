@@ -57,7 +57,6 @@ self.addEventListener('fetch', function (event) {
 						caches.open(CACHE_NAME)
 							.then(function (cache) {
 								responseToCache.json().then((data) => {
-									console.log(data);
 									self.clients.matchAll().then(function (clients){
 										clients.forEach(function(client){
 											client.postMessage({
@@ -105,7 +104,9 @@ self.addEventListener('activate', function (event) {
 					}
 				})
 			);
-		})
+		}).then(() => {
+			console.log('V2 now ready to handle fetches!');
+		  })
 	);
 });
 

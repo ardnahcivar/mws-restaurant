@@ -1,6 +1,6 @@
 let restaurants, neighborhoods, cuisines, newMap;
 let markers = [];
-
+var map;
 const dbName = 'resto-view';
 const version = 1;
 const objectStoreNames = ['restaurants'];
@@ -8,7 +8,7 @@ const objectStoreNames = ['restaurants'];
 bootApplication = () => {
 	fetchNeighborhoods();
 	fetchCuisines();
-	updateRestaurants();
+	// updateRestaurants();
 };
 
 iDB = (event) => {
@@ -107,39 +107,6 @@ fillCuisinesHTML = (cuisines = self.cuisines) => {
 };
 
 /**
- * Initialize leaflet map, called from HTML.
- */
-// initMap = () => {
-//   self.newMap = L.map('map', {
-//         center: [40.722216, -73.987501],
-//         zoom: 12,
-//         scrollWheelZoom: false
-//       });
-//   L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.jpg70?access_token={mapboxToken}', {
-//     mapboxToken: 'pk.eyJ1IjoicmF2aWNoYW5kcmEtYmhhbmFnZSIsImEiOiJjamlndGl6ajIwbW0zM3FvODFwZWFoZ2ZqIn0.DCkNZCX48Zc-4tIXKS8krA',
-//     maxZoom: 30,
-//     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
-//       '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-//       'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-//     id: 'mapbox.streets'
-//   }).addTo(newMap);
-
-//   updateRestaurants();
-// }
-window.initMap = () => {
-	let loc = {
-		lat: 40.722216,
-		lng: -73.987501
-	};
-	self.map = new google.maps.Map(document.getElementById('map'), {
-		zoom: 12,
-		center: loc,
-		scrollwheel: false
-	});
-	updateRestaurants();
-};
-
-/**
  * Update page and map for current restaurants.
  */
 updateRestaurants = () => {
@@ -171,10 +138,6 @@ resetRestaurants = (restaurants) => {
 	const ul = document.getElementById('restaurants-list');
 	ul.innerHTML = '';
 
-	// Remove all map markers
-	// if (self.markers) {
-	//   self.markers.forEach(marker => marker.remove());
-	// }
 	self.markers = [];
 	self.restaurants = restaurants;
 };
@@ -215,35 +178,16 @@ createRestaurantHTML = (restaurant) => {
 	address.innerHTML = restaurant.address;
 	li.append(address);
 
-	// const more = document.createElement('a');
-	// more.innerHTML = 'View Details';
-	// more.href = DBHelper.urlForRestaurant(restaurant);
-	// li.append(more)
 	li.onclick = () => {
 		window.location.href = DBHelper.urlForRestaurant(restaurant);
 	};
 	return li;
 };
 
-/**
- * Add markers for current restaurants to the map.
- */
-// addMarkersToMap = (restaurants = self.restaurants) => {
-//   restaurants.forEach(restaurant => {
-//     // Add marker to the map
-//     const marker = DBHelper.mapMarkerForRestaurant(restaurant, self.newMap);
-//     marker.on("click", onClick);
-//     function onClick() {
-//       window.location.href = marker.options.url;
-//     }
-//     self.markers.push(marker);
-//   });
-// }
-
 addMarkersToMap = (restaurants = self.restaurants) => {
 	restaurants.forEach(restaurant => {
 		// Add marker to the map
-		const marker = DBHelper.mapMarkerForRestaurant(restaurant, self.map);
+		const marker = DBHelper.mapMarkerForRestaurant(restaurant, map);
 		google.maps.event.addListener(marker, 'click', () => {
 			window.location.href = marker.url;
 		});
@@ -253,7 +197,7 @@ addMarkersToMap = (restaurants = self.restaurants) => {
 
 if ('serviceWorker' in navigator) {
 	window.addEventListener('load', function () {
-		navigator.serviceWorker.register('service-worker.js').then(function (registration) {
+		navigator.serviceWorker.register('./service-worker.js').then(function (registration) {
 			// Registration was successful
 			console.log('ServiceWorker registration successful with scope: ', registration.scope);
 		}, function (err) {
@@ -265,42 +209,5 @@ if ('serviceWorker' in navigator) {
 
 
 function loadMapScript(callback) {
-	let head = document.getElementsByTagName('head')[0];
-	let script = document.createElement('script');
-	script.type = 'text/javascript';
-	script.charset = 'utf-8';
-	let key = 'AIzaSyBT3oY7Gg7TNAfPZ5WEraGFmWU1sTdomdA';
-	script.src = 'https://maps.googleapis.com/maps/api/js?key=' + key + '&libraries=places&callback=initMap';
-	head.appendChild(script);
-	if (script.readyState) {
-		script.onreadystatechange = function () {
-			if (script.readyState == 'loaded' || script.readyState == 'complete') {
-				script.onreadystatechange = null;
-				callback();
-			}
-		};
-	} else {
-		script.onload = function () {
-			callback();
-		};
-	}
-	// fetch('./configs/credentials.json')
-	//   .then(function (response) {
-	//     if (response.status != 200) {
-	//       console.log('Error loading the json file', response.status);
-	//       return;
-	//     }
-	//     response.json().then(function (data) {
-	//       let head = document.getElementsByTagName('head')[0];
-	//       let script = document.createElement('script');
-	//       script.type = "application/javascript";
-	//       script.charset = "utf-8";
-	//       script.src = "https://maps.googleapis.com/maps/api/js?key=" + data.key + "&libraries=places&callback=initMap";
-	//       head.appendChild(script);
-	//       callback();
-	//     })
-	//   })
-	//   .catch(function (err) {
-	//     console.log('Got a error', err);
-	//   })
+	callback();
 }
