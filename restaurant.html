@@ -16,7 +16,7 @@
   <link rel="stylesheet" media="screen and (min-width: 768px) and (max-width:1024px)" href="./css/tablets.css">
   <link rel="stylesheet" media="screen and (min-width: 1025px)" href="./css/desktop.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-</head>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
 
 <body class="inside">
   <header role="banner" class="header">
@@ -44,6 +44,9 @@
     <section id="restaurant-container">
       <div class="restaurant-info">
         <h2 id="restaurant-name"></h2>
+        <div class="heart-icon">
+          <i class="far fa-heart gray"></i>
+        </div>
         <img id="restaurant-img">
         <div class="restaurant-tab">
           <table align="center" vertical-align="middle" id="restaurant-hours"></table>
@@ -61,6 +64,17 @@
   </main>
   <!-- End main -->
 
+
+<form id="add-review" class="disp-none">
+  Name 
+  <br>
+  <input id="reviewer-name" class="inp-text" type="text" name="reviewer-name">
+  Comments
+  <br>
+  <textarea name="comments" id="comments" cols="30" rows="10"></textarea>
+  <button id="add-review-btn" onclick="addReview()">Add a review</button>
+</form>
+
   <!-- Beginning footer -->
   <footer class="footer" role="contentinfo">
     Copyright (c) 2018 <a href="/"><strong>&nbsp Restaurant Reviews &nbsp</strong></a> All Rights Reserved.
@@ -71,7 +85,10 @@
   <!-- Google Maps -->
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBT3oY7Gg7TNAfPZ5WEraGFmWU1sTdomdA&libraries=places&callback=initMap"></script>
   <!-- End scripts -->
-  <script type="application/javascript" charset="utf-8" src="./app.min.js"></script>
+  <!-- <script type="application/javascript" charset="utf-8" src="./app.min.js"></script> -->
+  <script type="application/javascript" charset="utf-8" src="./js/dbhelper.js"></script>
+    <script type="application/javascript" charset="utf-8" src="./js/restaurant_info.js"></script>
+    <script type="application/javascript" charset="utf-8" src="./js/idb.js"></script>
 
 </body>
 

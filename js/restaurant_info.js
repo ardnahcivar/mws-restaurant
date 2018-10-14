@@ -1,9 +1,9 @@
 let restaurant;
 
 
-// const dbName = 'resto-view';
-// const version = 1;
-// const objectStoreNames = ['restaurants'];
+const dbName = 'resto-view';
+const version = 1;
+const objectStoreNames = ['restaurants'];
 
 navigator.serviceWorker.addEventListener('message', event => {
 	iDB(event);
@@ -130,7 +130,14 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
 		fillRestaurantHoursHTML();
 	}
 	// fill reviews
-	fillReviewsHTML();
+	// fillReviewsHTML();
+	DBHelper.reviewById(restaurant.id,(error,review)=>{
+		if(error){
+			console.log(error);
+		}else{
+			fillReviewsHTML(review);
+		}
+	});
 };
 
 /**
@@ -173,11 +180,39 @@ fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => 
 /**
  * Create all reviews HTML and add them to the webpage.
  */
-fillReviewsHTML = (reviews = self.restaurant.reviews) => {
+fillReviewsHTML = (reviews) => {
+
+	//validation for checking if reviews is array or not
+	if(!(reviews instanceof Array)){
+		let temp = reviews;
+		reviews = [];
+		reviews.push(temp);
+	}
 	const container = document.getElementById('reviews-container');
 	const title = document.createElement('h3');
 	title.innerHTML = 'Reviews';
 	container.appendChild(title);
+
+	let review = document.createElement('div');
+	review.className='review-add-icon';
+	review.onclick = () => {
+		if(document.getElementById('add-review').classList.contains('disp-none')){
+			document.getElementById('add-review').classList.remove('disp-none');
+			document.getElementById('add-review').classList.add('disp-blk');
+		}else{
+			document.getElementById('add-review').classList.remove('disp-blk');
+			document.getElementById('add-review').classList.add('disp-none');
+		}
+	};
+
+	let addReviewicon = document.createElement('i');
+	addReviewicon.className = 'far fa-comment-alt';
+	review.appendChild(addReviewicon);
+
+	container.appendChild(review);
+
+	let reviewForm = document.getElementById('add-review');
+	container.appendChild(reviewForm);
 
 	if (!reviews) {
 		const noReviews = document.createElement('p');
@@ -224,7 +259,7 @@ createReviewHTML = (review) => {
 
 	const date = document.createElement('p');
 	date.className = 'review-date';
-	date.innerHTML = review.date;
+	date.innerHTML = review.updatedAt;
 	reviews.appendChild(date);
 
 	li.appendChild(reviews);
@@ -261,4 +296,29 @@ getParameterByName = (name, url) => {
 	if (!results[2])
 		return '';
 	return decodeURIComponent(results[2].replace(/\+/g, ' '));
+};
+
+/**
+ * get restaurant review by id
+ */
+reviewById = (id)=>{
+	let url = DBHelper.REVIEWS_URL(id);
+	DBHelper.getMethod();
+	
+};
+
+addReview = () => {
+	let data = {
+		'name':document.getElementById('reviewer-name').value,
+		'comments':document.getElementById('comments').value,
+		'rating':4,
+		'restaurant_id':1
+	};
+	DBHelper.addReview(data,(error,review)=>{
+		if(error){
+			alert('ERROR In Adding review');
+		}else{
+			alert(`Successfully added ${review}`);
+		}
+	});
 };

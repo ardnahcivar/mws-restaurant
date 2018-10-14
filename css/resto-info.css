@@ -11,7 +11,26 @@
     font-weight: 500;
     line-height: 20px;
     padding: 0.5em;
+    width: 40vw;
+    display: inline-block;
 }
+
+.heart-icon{
+    display: inline-block;
+    cursor: pointer;
+}
+.heart-icon i {
+    font-size: 1.5em;
+}
+
+.heart-icon i red{
+    /* color: #9E9E9E; */
+}
+
+.heart-icon i red{
+    color: red;
+}
+
 #restaurant-img{
     width: 50vw;
     height:50vh;
@@ -52,6 +71,8 @@
     font-weight: 500;
     line-height: 20px;
     padding: 0.5em;
+    width: 40vw;
+    display: inline-block;
     /* border: 1px solid black; */
 }
 #restaurant-cuisine,#restaurant-address{
@@ -118,3 +139,28 @@
     line-height: 20px;
     font-weight: 400;
 }   
+
+#add-review{
+    width: 40vw;
+    margin: 0 auto;
+}
+.inp-text, #comments,#add-review-btn{
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.review-add-icon{
+    display: inline-block;
+    cursor: pointer;
+}
+.review-add-icon i {
+    font-size: 1.2em;
+}
+
+.disp-none{
+    display: none;
+}
+.disp-blk{
+    display: block;
+}

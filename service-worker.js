@@ -45,6 +45,7 @@ self.addEventListener('fetch', function (event) {
 		caches.match(event.request)
 			.then(function (response) {
 				if (response) {
+					updateCache(event);
 					return response;
 				}
 				if(event.request.url.indexOf(idburls[0]) > 0){
@@ -77,18 +78,7 @@ self.addEventListener('fetch', function (event) {
 						});
 					});
 				}
-				let fetchReq = event.request.clone();
-				return fetch(fetchReq).then(function (response) {
-					if (!response || response.status != 200) {
-						return response;
-					}
-					let responseToCache = response.clone();
-					caches.open(CACHE_NAME)
-						.then(function (cache) {
-							cache.put(event.request, responseToCache);
-						});
-					return response;
-				});
+				return updateCache(event);
 			})
 	);
 });
@@ -106,10 +96,25 @@ self.addEventListener('activate', function (event) {
 			);
 		}).then(() => {
 			console.log('V2 now ready to handle fetches!');
-		  })
+		})
 	);
 });
 
+
+async function updateCache(event) {
+	let fetchReq = event.request.clone();
+	return fetch(fetchReq).then(function (response) {
+		if (!response || response.status != 200) {
+			return response;
+		}
+		let responseToCache = response.clone();
+		caches.open(CACHE_NAME)
+			.then(function (cache) {
+				cache.put(event.request, responseToCache);
+			});
+		return response;
+	});
+}
 
 getDB = () => {
 	if (!db) {
