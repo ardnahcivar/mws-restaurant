@@ -150,6 +150,12 @@
     width: 100%;
 }
 
+.rating-box{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
 .review-add-icon{
     display: inline-block;
     cursor: pointer;
@@ -164,3 +170,4 @@
 .disp-blk{
     display: block;
 }
+

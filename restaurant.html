@@ -15,6 +15,7 @@
   <link rel="stylesheet" media="screen and (min-width: 320px) and (max-width: 480px)" href="./css/mobile.css">
   <link rel="stylesheet" media="screen and (min-width: 768px) and (max-width:1024px)" href="./css/tablets.css">
   <link rel="stylesheet" media="screen and (min-width: 1025px)" href="./css/desktop.css">
+  <link rel="stylesheet" media="screen and (min-width: 1025px)" href="./css/star.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
 
@@ -66,12 +67,23 @@
 
 
 <form id="add-review" class="disp-none">
-  Name 
-  <br>
+  <label for="reviewer-name">Name</label> 
   <input id="reviewer-name" class="inp-text" type="text" name="reviewer-name">
-  Comments
-  <br>
-  <textarea name="comments" id="comments" cols="30" rows="10"></textarea>
+  <div class="rating-box">
+    <label for="rating">Rating</label>
+      <fieldset class="rating" id="rating">
+          <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
+          <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
+          <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
+          <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
+          <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
+      </fieldset>
+  </div>
+  <div class="comments-box">
+    <label for="comments">Comments</label>
+    <textarea name="comments" id="comments" cols="30" rows="10"></textarea>
+  </div>
+
   <button id="add-review-btn" onclick="addReview()">Add a review</button>
 </form>
 

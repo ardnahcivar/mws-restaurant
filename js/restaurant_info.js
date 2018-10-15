@@ -196,13 +196,14 @@ fillReviewsHTML = (reviews) => {
 	let review = document.createElement('div');
 	review.className='review-add-icon';
 	review.onclick = () => {
-		if(document.getElementById('add-review').classList.contains('disp-none')){
-			document.getElementById('add-review').classList.remove('disp-none');
-			document.getElementById('add-review').classList.add('disp-blk');
-		}else{
-			document.getElementById('add-review').classList.remove('disp-blk');
-			document.getElementById('add-review').classList.add('disp-none');
-		}
+		// if(document.getElementById('add-review').classList.contains('disp-none')){
+		// 	document.getElementById('add-review').classList.remove('disp-none');
+		// 	document.getElementById('add-review').classList.add('disp-blk');
+		// }else{
+		// 	document.getElementById('add-review').classList.remove('disp-blk');
+		// 	document.getElementById('add-review').classList.add('disp-none');
+		// }
+		document.getElementById('add-review').classList.toggle('disp-blk');
 	};
 
 	let addReviewicon = document.createElement('i');
@@ -308,17 +309,35 @@ reviewById = (id)=>{
 };
 
 addReview = () => {
-	let data = {
-		'name':document.getElementById('reviewer-name').value,
-		'comments':document.getElementById('comments').value,
-		'rating':4,
-		'restaurant_id':1
-	};
-	DBHelper.addReview(data,(error,review)=>{
-		if(error){
-			alert('ERROR In Adding review');
+	//validation
+	if(document.getElementById('reviewer-name').value &&
+		document.getElementById('comments').value ){
+		let data = {
+			'name':document.getElementById('reviewer-name').value,
+			'comments':document.getElementById('comments').value,
+			'rating':4,
+			'restaurant_id':1
+		};
+		DBHelper.addReview(data,(error,review)=>{
+			if(error){
+				alert('ERROR In Adding review');
+			}else{
+				alert(`Successfully added ${review}`);
+			}
+		});
+	}else{
+		alert('Please enter valid data');
+	}
+};
+
+rateIt = (e) => {
+	const rates = document.querySelectorAll('.fa-star');
+	for(let i = 0;i<rates.length;i++){
+		if(rates[i].classList == e.classList){
+			e.classList.toggle('fas');			
+			break;
 		}else{
-			alert(`Successfully added ${review}`);
+			e.classList.toggle('fas');			
 		}
-	});
+	}
 };
