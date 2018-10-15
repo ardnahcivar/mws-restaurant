@@ -15,19 +15,13 @@
     display: inline-block;
 }
 
-.heart-icon{
+.heart-icon-box{
     display: inline-block;
     cursor: pointer;
 }
-.heart-icon i {
+
+.heart-icon-box i {
     font-size: 1.5em;
-}
-
-.heart-icon i red{
-    /* color: #9E9E9E; */
-}
-
-.heart-icon i red{
     color: red;
 }
 

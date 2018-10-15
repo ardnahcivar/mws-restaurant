@@ -207,6 +207,7 @@ fillReviewsHTML = (reviews) => {
 	};
 
 	let addReviewicon = document.createElement('i');
+	addReviewicon.title = 'Add a review';
 	addReviewicon.className = 'far fa-comment-alt';
 	review.appendChild(addReviewicon);
 
@@ -308,20 +309,32 @@ reviewById = (id)=>{
 	
 };
 
-addReview = () => {
+addRestoReview = () => {
 	//validation
+	let rateIndex = -1;
+	let rateList = document.getElementsByName('rating');
+	for(let i = 0;i < rateList.length; i++){
+		console.log(rateList[i].hasOwnProperty('checked'));
+		if(rateList[i].checked == true){
+			rateIndex = i;
+			break;
+		}
+	}
 	if(document.getElementById('reviewer-name').value &&
-		document.getElementById('comments').value ){
+		document.getElementById('comments').value && rateIndex + 1 ){
 		let data = {
 			'name':document.getElementById('reviewer-name').value,
 			'comments':document.getElementById('comments').value,
-			'rating':4,
-			'restaurant_id':1
+			'rating':rateIndex + 1,
+			'restaurant_id': parseInt(getParameterByName('id'))
 		};
-		DBHelper.addReview(data,(error,review)=>{
+		DBHelper.addReview(JSON.stringify(data),(error,review)=>{
 			if(error){
 				alert('ERROR In Adding review');
 			}else{
+				console.log(review);
+				document.getElementById('reviewer-name').value = null;
+				document.getElementById('comments').value = null;
 				alert(`Successfully added ${review}`);
 			}
 		});
@@ -340,4 +353,19 @@ rateIt = (e) => {
 			e.classList.toggle('fas');			
 		}
 	}
+};
+
+markFavourite = () => {
+	document.getElementById('heart-icon').classList.toggle('far');
+	document.getElementById('heart-icon').classList.toggle('fas');
+
+	DBHelper.markFavouriteRest(parseInt(getParameterByName('id')),
+		document.getElementById('heart-icon').classList.contains('fas'),
+		(error,restaurant) => {
+			if(error){
+				alert('Error in mark favourite');
+			}else{
+				alert(`marked successfully ${restaurant}`);
+			}
+		});
 };

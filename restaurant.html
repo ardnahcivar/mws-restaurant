@@ -45,8 +45,8 @@
     <section id="restaurant-container">
       <div class="restaurant-info">
         <h2 id="restaurant-name"></h2>
-        <div class="heart-icon">
-          <i class="far fa-heart gray"></i>
+        <div class="heart-icon-box">
+          <i title= "Mark Favourite" id="heart-icon" class="far fa-heart gray" onclick="markFavourite()"></i>
         </div>
         <img id="restaurant-img">
         <div class="restaurant-tab">
@@ -66,7 +66,7 @@
   <!-- End main -->
 
 
-<form id="add-review" class="disp-none">
+<form autocomplete="off" id="add-review" class="disp-none">
   <label for="reviewer-name">Name</label> 
   <input id="reviewer-name" class="inp-text" type="text" name="reviewer-name">
   <div class="rating-box">
@@ -83,8 +83,7 @@
     <label for="comments">Comments</label>
     <textarea name="comments" id="comments" cols="30" rows="10"></textarea>
   </div>
-
-  <button id="add-review-btn" onclick="addReview()">Add a review</button>
+  <button type="button" id="add-review-btn" onclick="addRestoReview()">Add a review</button>
 </form>
 
   <!-- Beginning footer -->

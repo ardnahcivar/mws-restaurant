@@ -22,6 +22,10 @@ class DBHelper {
 	static get POST_REVIEWS_URL(){
 		return `${this.DATABASE_URL}/reviews`;
 	}
+
+	static  MARK_FAVOURITE_URL(id,flag){
+		return `${this.DATABASE_URL}/${this.RESTAURANTS_URL}/${id}/?is_favorite=${flag}`;
+	}
 	
 	/**
 	 * 
@@ -208,6 +212,16 @@ class DBHelper {
 				callback(error,null);
 			});
 	}
+
+	static markFavouriteRest(id,flag,callback){
+		DBHelper.putMethod(DBHelper.MARK_FAVOURITE_URL(id,flag))
+			.then((restaurant) => {
+				callback(null,restaurant);
+			})
+			.catch((error) => {
+				callback(error,null);
+			});
+	}
 	/**
    * 
    * Fetch api wrapper 
@@ -247,7 +261,14 @@ class DBHelper {
    * 
    * put method wrapper 
    */
-	static async putMethod(url, data){
-
+	static async putMethod(url){
+		return fetch(url,{
+			method:'put'
+		}).then((response) => {
+			return response.json();
+		})
+			.catch((error) => {
+				throw new Error(`${error} in PUT Method`);
+			});
 	}
 }
