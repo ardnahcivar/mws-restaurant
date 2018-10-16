@@ -3,12 +3,12 @@ let markers = [];
 var map;
 const dbName = 'resto-view';
 const version = 1;
-const objectStoreNames = ['restaurants'];
+const objectStoreNames = ['restaurants','reviews'];
 
 bootApplication = () => {
 	fetchNeighborhoods();
 	fetchCuisines();
-	// updateRestaurants();
+	// updateRestaurants();	
 };
 
 iDB = (event) => {
@@ -18,6 +18,11 @@ iDB = (event) => {
 			console.log(`making a new object store ${objectStoreNames[0]}-${version}`);
 			if (!upgradeDb.objectStoreNames.contains(`${objectStoreNames[0]}-${version}`)) {
 				const store = upgradeDb.createObjectStore(`${objectStoreNames[0]}-${version}`);
+				console.log(event.data.msg);
+				store.put(event.data.msg, event.data.url);
+			}
+			if (!upgradeDb.objectStoreNames.contains(`${objectStoreNames[1]}-${version}`)) {
+				const store = upgradeDb.createObjectStore(`${objectStoreNames[1]}-${version}`);
 				console.log(event.data.msg);
 				store.put(event.data.msg, event.data.url);
 			}

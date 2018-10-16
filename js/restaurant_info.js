@@ -5,6 +5,14 @@ const dbName = 'resto-view';
 const version = 1;
 const objectStoreNames = ['restaurants'];
 
+navigator.serviceWorker.ready.then((registeration) => {
+	return registeration.sync.register('sendReviewData');
+}).then(() => {
+	console.log('sync registered');
+}).catch(() => {
+	console.log('sync failed');
+});
+
 navigator.serviceWorker.addEventListener('message', event => {
 	iDB(event);
 });
@@ -196,13 +204,6 @@ fillReviewsHTML = (reviews) => {
 	let review = document.createElement('div');
 	review.className = 'review-add-icon';
 	review.onclick = () => {
-		// if(document.getElementById('add-review').classList.contains('disp-none')){
-		// 	document.getElementById('add-review').classList.remove('disp-none');
-		// 	document.getElementById('add-review').classList.add('disp-blk');
-		// }else{
-		// 	document.getElementById('add-review').classList.remove('disp-blk');
-		// 	document.getElementById('add-review').classList.add('disp-none');
-		// }
 		document.getElementById('add-review').classList.toggle('disp-blk');
 	};
 
@@ -328,16 +329,22 @@ addRestoReview = () => {
 			'rating': rateIndex + 1,
 			'restaurant_id': parseInt(getParameterByName('id'))
 		};
+
+		///send form data to service worker for saving offline
+		navigator.serviceWorker.controller.postMessage(data);
+
 		DBHelper.addReview(JSON.stringify(data), (error, review) => {
 			if (error) {
 				alert('ERROR In Adding review');
 			} else {
 				console.log(review);
+				let rateList = document.getElementsByName('rating');
 				document.getElementById('reviewer-name').value = null;
 				document.getElementById('comments').value = null;
-				for (let i = 0; i < rList.length; i++) {
+				for (let i = 0; i < rateList.length; i++) {
 					rateList[i].checked = false;
 				}
+				document.getElementById('add-review').classList.toggle('disp-blk');
 				alert(`Successfully added ${review}`);
 			}
 		});

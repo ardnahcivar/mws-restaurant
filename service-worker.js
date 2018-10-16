@@ -19,10 +19,10 @@ const idburls = [
 	'restaurants/?'
 ];
 
-const dbName = 'resto-view';
+conswt dbName = 'resto-view';
 const version = 1;
 const objectStoreNames = ['restaurants', 'reviews'];
-let db;
+let db,reviewFormData;
 
 // const dbPromise = idb.open(`${dbName}-${version}`, 1, function(upgradeDb) {
 //     if (!upgradeDb.objectStoreNames.contains(`${objectStoreNames[0]}-${version}`)) {
@@ -43,11 +43,11 @@ self.addEventListener('install', function (event) {
 self.addEventListener('fetch', function (event) {
 
 	if (event.request.clone().method == 'POST') {
-		event.respondWith(event.request.clone())
-			.catch((error) => {
-				//save in indexedDB
-				post(event);
-			})
+		event.respondWith(fetch(event.request.clone()).catch((error) => {
+			//save in indexedDB
+			post(event);
+			return reviewFormData;
+		}));
 	}
 	event.respondWith(
 		caches.match(event.request)
@@ -109,7 +109,6 @@ self.addEventListener('activate', function (event) {
 	);
 });
 
-
 async function updateCache(event) {
 	let fetchReq = event.request.clone();
 	return fetch(fetchReq).then(function (response) {
@@ -169,8 +168,47 @@ async function get(key) {
 async function post(event) {
 	const db = await getDB(objectStoreNames[1]);
 	await withStore(objectStoreNames[1], 'readwrite', store => {
-		//store.put(data to be added)
-	})
+		store.put({url:event.request.url,payload:reviewFormData,method:'POST'},`${reviewFormData.name}-${reviewFormData.restaurant_id}`);
+	});
 }
 
+async function sendReviewsServer(){
+	let allSavedReview = [];
+	const db = await getDB(objectStoreNames[1]);
+	await withStore(objectStoreNames[1], 'readwrite',store => {
+		let req = store.openCursor();
+		req.onsuccess = async function(event){
+			let cursor = event.target.result;
+			if(cursor){
+				allSavedReview.push(cursor.value);
+				cursor.continue();
+			}else{
+				for(let review of allSavedReview){
+					fetch(review.url,{
+						headers:{'Content-Type':'application/json'},
+						method:review.method,
+						body:JSON.stringify(review.payload)
+					}).then((response) => {
+						if(response.status < 400){
+							const tx = db.transaction(`${objectStoreNames[1]}-${version}`,'readwrite');
+							tx.objectStore(`${objectStoreNames[1]}-${version}`).delete(`${review.payload.name}-${review.payload.restaurant_id}`);
+							tx.complete;
+						}
+					}).catch((error) => {
+						throw Error(`${error} Failed to send review to server`);
+					});
+				}
+			}
+		};
+	});
+}
 
+self.addEventListener('message',(event) => {
+	reviewFormData = event.data;
+});
+
+self.addEventListener('sync', (event) => {
+	if(event.tag == 'sendReviewData'){
+		sendReviewsServer(event);
+	}
+} );
