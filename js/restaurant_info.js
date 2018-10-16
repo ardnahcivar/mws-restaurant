@@ -131,10 +131,10 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
 	}
 	// fill reviews
 	// fillReviewsHTML();
-	DBHelper.reviewById(restaurant.id,(error,review)=>{
-		if(error){
+	DBHelper.reviewById(restaurant.id, (error, review) => {
+		if (error) {
 			console.log(error);
-		}else{
+		} else {
 			fillReviewsHTML(review);
 		}
 	});
@@ -183,7 +183,7 @@ fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => 
 fillReviewsHTML = (reviews) => {
 
 	//validation for checking if reviews is array or not
-	if(!(reviews instanceof Array)){
+	if (!(reviews instanceof Array)) {
 		let temp = reviews;
 		reviews = [];
 		reviews.push(temp);
@@ -194,7 +194,7 @@ fillReviewsHTML = (reviews) => {
 	container.appendChild(title);
 
 	let review = document.createElement('div');
-	review.className='review-add-icon';
+	review.className = 'review-add-icon';
 	review.onclick = () => {
 		// if(document.getElementById('add-review').classList.contains('disp-none')){
 		// 	document.getElementById('add-review').classList.remove('disp-none');
@@ -303,54 +303,57 @@ getParameterByName = (name, url) => {
 /**
  * get restaurant review by id
  */
-reviewById = (id)=>{
+reviewById = (id) => {
 	let url = DBHelper.REVIEWS_URL(id);
 	DBHelper.getMethod();
-	
+
 };
 
 addRestoReview = () => {
 	//validation
 	let rateIndex = -1;
 	let rateList = document.getElementsByName('rating');
-	for(let i = 0;i < rateList.length; i++){
+	for (let i = 0; i < rateList.length; i++) {
 		console.log(rateList[i].hasOwnProperty('checked'));
-		if(rateList[i].checked == true){
+		if (rateList[i].checked == true) {
 			rateIndex = i;
 			break;
 		}
 	}
-	if(document.getElementById('reviewer-name').value &&
-		document.getElementById('comments').value && rateIndex + 1 ){
+	if (document.getElementById('reviewer-name').value &&
+		document.getElementById('comments').value && rateIndex + 1) {
 		let data = {
-			'name':document.getElementById('reviewer-name').value,
-			'comments':document.getElementById('comments').value,
-			'rating':rateIndex + 1,
+			'name': document.getElementById('reviewer-name').value,
+			'comments': document.getElementById('comments').value,
+			'rating': rateIndex + 1,
 			'restaurant_id': parseInt(getParameterByName('id'))
 		};
-		DBHelper.addReview(JSON.stringify(data),(error,review)=>{
-			if(error){
+		DBHelper.addReview(JSON.stringify(data), (error, review) => {
+			if (error) {
 				alert('ERROR In Adding review');
-			}else{
+			} else {
 				console.log(review);
 				document.getElementById('reviewer-name').value = null;
 				document.getElementById('comments').value = null;
+				for (let i = 0; i < rList.length; i++) {
+					rateList[i].checked = false;
+				}
 				alert(`Successfully added ${review}`);
 			}
 		});
-	}else{
+	} else {
 		alert('Please enter valid data');
 	}
 };
 
 rateIt = (e) => {
 	const rates = document.querySelectorAll('.fa-star');
-	for(let i = 0;i<rates.length;i++){
-		if(rates[i].classList == e.classList){
-			e.classList.toggle('fas');			
+	for (let i = 0; i < rates.length; i++) {
+		if (rates[i].classList == e.classList) {
+			e.classList.toggle('fas');
 			break;
-		}else{
-			e.classList.toggle('fas');			
+		} else {
+			e.classList.toggle('fas');
 		}
 	}
 };
@@ -361,10 +364,10 @@ markFavourite = () => {
 
 	DBHelper.markFavouriteRest(parseInt(getParameterByName('id')),
 		document.getElementById('heart-icon').classList.contains('fas'),
-		(error,restaurant) => {
-			if(error){
+		(error, restaurant) => {
+			if (error) {
 				alert('Error in mark favourite');
-			}else{
+			} else {
 				alert(`marked successfully ${restaurant}`);
 			}
 		});

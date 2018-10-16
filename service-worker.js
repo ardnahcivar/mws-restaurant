@@ -21,7 +21,7 @@ const idburls = [
 
 const dbName = 'resto-view';
 const version = 1;
-const objectStoreNames = ['restaurants'];
+const objectStoreNames = ['restaurants', 'reviews'];
 let db;
 
 // const dbPromise = idb.open(`${dbName}-${version}`, 1, function(upgradeDb) {
@@ -41,6 +41,14 @@ self.addEventListener('install', function (event) {
 });
 
 self.addEventListener('fetch', function (event) {
+
+	if (event.request.clone().method == 'POST') {
+		event.respondWith(event.request.clone())
+			.catch((error) => {
+				//save in indexedDB
+				post(event);
+			})
+	}
 	event.respondWith(
 		caches.match(event.request)
 			.then(function (response) {
@@ -48,7 +56,8 @@ self.addEventListener('fetch', function (event) {
 					updateCache(event);
 					return response;
 				}
-				if(event.request.url.indexOf(idburls[0]) > 0){
+
+				if (event.request.url.indexOf(idburls[0]) > 0) {
 					let fetchReq = event.request.clone();
 					return fetch(fetchReq).then(function (response) {
 						if (!response || response.status != 200) {
@@ -58,8 +67,8 @@ self.addEventListener('fetch', function (event) {
 						caches.open(CACHE_NAME)
 							.then(function (cache) {
 								responseToCache.json().then((data) => {
-									self.clients.matchAll().then(function (clients){
-										clients.forEach(function(client){
+									self.clients.matchAll().then(function (clients) {
+										clients.forEach(function (client) {
 											client.postMessage({
 												msg: data,
 												url: event.request.url
@@ -69,11 +78,11 @@ self.addEventListener('fetch', function (event) {
 								});
 							});
 						return response;
-					}).catch((error)=>{
+					}).catch((error) => {
 						//in offline 
-						return new Promise((resolve,reject) => {
-							resolve(new Response(new ReadableStream(get(event.request.url)),{'status':200}));
-						},(error)=>{
+						return new Promise((resolve, reject) => {
+							resolve(new Response(new ReadableStream(get(event.request.url)), { 'status': 200 }));
+						}, (error) => {
 							reject(error);
 						});
 					});
@@ -116,7 +125,7 @@ async function updateCache(event) {
 	});
 }
 
-getDB = () => {
+getDB = (store) => {
 	if (!db) {
 		db = new Promise((resolve, reject) => {
 			const openreq = indexedDB.open(`${dbName}-${version}`, 1);
@@ -127,7 +136,7 @@ getDB = () => {
 
 			openreq.onupgradeneeded = () => {
 				// First time setup: create an empty object store
-				openreq.result.createObjectStore(`${objectStoreNames[0]}-${version}`);
+				openreq.result.createObjectStore(`${store}-${version}`);
 			};
 
 			openreq.onsuccess = () => {
@@ -138,23 +147,30 @@ getDB = () => {
 	return db;
 };
 
-async function withStore(type, callback) {
-	const db = await getDB();
+async function withStore(store, type, callback) {
+	const db = await getDB(objectStoreNames[0]);
 	return new Promise((resolve, reject) => {
-		const transaction = db.transaction(`${objectStoreNames[0]}-${version}`, type);
+		const transaction = db.transaction(`${store}-${version}`, type);
 		transaction.oncomplete = () => resolve();
 		transaction.onerror = () => reject(transaction.error);
-		callback(transaction.objectStore(`${objectStoreNames[0]}-${version}`));
+		callback(transaction.objectStore(`${store}-${version}`));
 	});
 }
 
 async function get(key) {
 	let req;
-	await withStore('readonly', store => {
+	await withStore(objectStoreNames[0], 'readonly', store => {
 		req = store.get(key);
 	});
-	return req.result;  
+	return req.result;
 }
 
+
+async function post(event) {
+	const db = await getDB(objectStoreNames[1]);
+	await withStore(objectStoreNames[1], 'readwrite', store => {
+		//store.put(data to be added)
+	})
+}
 
 

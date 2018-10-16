@@ -18,21 +18,21 @@ class DBHelper {
 	static get RESTAURANTS_URL() {
 		return `restaurants`;
 	}
-  
-	static get POST_REVIEWS_URL(){
+
+	static get POST_REVIEWS_URL() {
 		return `${this.DATABASE_URL}/reviews`;
 	}
 
-	static  MARK_FAVOURITE_URL(id,flag){
+	static MARK_FAVOURITE_URL(id, flag) {
 		return `${this.DATABASE_URL}/${this.RESTAURANTS_URL}/${id}/?is_favorite=${flag}`;
 	}
-	
+
 	/**
 	 * 
 	 * alls reviews of a restaurant 
 	 */
-	static  REVIEWS_URL(id = 0){
-		return (id ? `${this.DATABASE_URL}/reviews/?restaurant_id=${id}`: `${this.DATABASE_URL}/reviews/?restaurant_id=`);
+	static REVIEWS_URL(id = 0) {
+		return (id ? `${this.DATABASE_URL}/reviews/?restaurant_id=${id}` : `${this.DATABASE_URL}/reviews/?restaurant_id=`);
 	}
 
 	/**
@@ -194,7 +194,7 @@ class DBHelper {
 	/**
  * fetch restaurnat review by id
  */
-	static reviewById(id,callback){
+	static reviewById(id, callback) {
 		DBHelper.getMethod(DBHelper.REVIEWS_URL(id))
 			.then((review) => {
 				callback(null, review);
@@ -203,23 +203,23 @@ class DBHelper {
 			});
 	}
 
-	static addReview(data,callback){
-		DBHelper.postMethod(DBHelper.POST_REVIEWS_URL,data)
-			.then((review)=>{
-				callback(null,review);
+	static addReview(data, callback) {
+		DBHelper.postMethod(DBHelper.POST_REVIEWS_URL, data)
+			.then((review) => {
+				callback(null, review);
 			})
 			.catch((error) => {
-				callback(error,null);
+				callback(error, null);
 			});
 	}
 
-	static markFavouriteRest(id,flag,callback){
-		DBHelper.putMethod(DBHelper.MARK_FAVOURITE_URL(id,flag))
+	static markFavouriteRest(id, flag, callback) {
+		DBHelper.putMethod(DBHelper.MARK_FAVOURITE_URL(id, flag))
 			.then((restaurant) => {
-				callback(null,restaurant);
+				callback(null, restaurant);
 			})
 			.catch((error) => {
-				callback(error,null);
+				callback(error, null);
 			});
 	}
 	/**
@@ -245,10 +245,10 @@ class DBHelper {
    * 
    * post method wrapper 
    */
-	static async postMethod(url, data){
-		return fetch(url,{
-			method:'post',
-			body:data
+	static async postMethod(url, data) {
+		return fetch(url, {
+			method: 'post',
+			body: data
 		}).then((response) => {
 			return response.json();
 		})
@@ -256,14 +256,14 @@ class DBHelper {
 				throw new Error(`${error} in POST Method`);
 			});
 	}
-  
+
 	/**
    * 
    * put method wrapper 
    */
-	static async putMethod(url){
-		return fetch(url,{
-			method:'put'
+	static async putMethod(url) {
+		return fetch(url, {
+			method: 'put'
 		}).then((response) => {
 			return response.json();
 		})
