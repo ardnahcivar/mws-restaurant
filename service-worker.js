@@ -16,20 +16,14 @@ const urlsToCache = [
 
 const idburls = [
 	'restaurants',
-	'restaurants/?'
+	'restaurants/?',
+	'reviews/?'
 ];
 
-conswt dbName = 'resto-view';
+const dbName = 'resto-view';
 const version = 1;
 const objectStoreNames = ['restaurants', 'reviews'];
 let db,reviewFormData;
-
-// const dbPromise = idb.open(`${dbName}-${version}`, 1, function(upgradeDb) {
-//     if (!upgradeDb.objectStoreNames.contains(`${objectStoreNames[0]}-${version}`)) {
-//       upgradeDb.createObjectStore(`${objectStoreNames[0]}-${version}`);
-//     }
-// });
-
 
 self.addEventListener('install', function (event) {
 	event.waitUntil(
@@ -46,50 +40,56 @@ self.addEventListener('fetch', function (event) {
 		event.respondWith(fetch(event.request.clone()).catch((error) => {
 			//save in indexedDB
 			post(event);
-			return reviewFormData;
+			return new Response(JSON.stringify(reviewFormData), { 'status': 201,headers:{'Content-Type':'application/json'}});
 		}));
 	}
-	event.respondWith(
-		caches.match(event.request)
-			.then(function (response) {
-				if (response) {
-					updateCache(event);
-					return response;
-				}
-
-				if (event.request.url.indexOf(idburls[0]) > 0) {
-					let fetchReq = event.request.clone();
-					return fetch(fetchReq).then(function (response) {
-						if (!response || response.status != 200) {
-							return response;
-						}
-						let responseToCache = response.clone();
-						caches.open(CACHE_NAME)
-							.then(function (cache) {
-								responseToCache.json().then((data) => {
-									self.clients.matchAll().then(function (clients) {
-										clients.forEach(function (client) {
-											client.postMessage({
-												msg: data,
-												url: event.request.url
+	else{
+		event.respondWith(
+			caches.match(event.request)
+				.then(function (response) {
+					if (response) {
+						updateCache(event);
+						return response;
+					}
+		
+					if (event.request.url.indexOf(idburls[0]) > 0 || event.request.url.indexOf(idburls[2]) > 0) {
+						let fetchReq = event.request.clone();
+						return fetch(fetchReq).then(function (response) {
+							if (!response || response.status != 200) {
+								return response;
+							}
+							let responseToCache = response.clone();
+							caches.open(CACHE_NAME)
+								.then(function (cache) {
+									responseToCache.json().then((data) => {
+										self.clients.matchAll().then(function (clients) {
+											clients.forEach(function (client) {
+												client.postMessage({
+													msg: data,
+													url: event.request.url
+												});
 											});
 										});
 									});
 								});
+							return response;
+						}).catch((error) => {
+							//in offline 
+							return new Promise((resolve, reject) => {
+								get(event.request.url)
+									.then((val) => {
+										return resolve(new Response(JSON.stringify(val), { 'status': 200,headers:{'Content-Type':'application/json'}}));
+									});
+							}
+							, (error) => {
+								reject(error);
 							});
-						return response;
-					}).catch((error) => {
-						//in offline 
-						return new Promise((resolve, reject) => {
-							resolve(new Response(new ReadableStream(get(event.request.url)), { 'status': 200 }));
-						}, (error) => {
-							reject(error);
 						});
-					});
-				}
-				return updateCache(event);
-			})
-	);
+					}
+					return updateCache(event);
+				})
+		);
+	}
 });
 
 
@@ -158,10 +158,17 @@ async function withStore(store, type, callback) {
 
 async function get(key) {
 	let req;
-	await withStore(objectStoreNames[0], 'readonly', store => {
-		req = store.get(key);
+	// await withStore(objectStoreNames[0], 'readonly', store => {
+	// 	req = store.get(key);
+	// });
+	// return req.result;
+	return new Promise((resolve,reject) => {
+		withStore(objectStoreNames[0],'readonly',store => {
+			req = store.get(key);
+		}).then(() => {
+			resolve(req.result);
+		});
 	});
-	return req.result;
 }
 
 

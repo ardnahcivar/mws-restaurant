@@ -345,7 +345,9 @@ addRestoReview = () => {
 					rateList[i].checked = false;
 				}
 				document.getElementById('add-review').classList.toggle('disp-blk');
+				this.insertReview(review);
 				alert(`Successfully added ${review}`);
+
 			}
 		});
 	} else {
@@ -378,4 +380,9 @@ markFavourite = () => {
 				alert(`marked successfully ${restaurant}`);
 			}
 		});
+};
+
+insertReview = (review) => {
+	const ul = document.getElementById('reviews-list');	
+	ul.appendChild(this.createReviewHTML(review));
 };
