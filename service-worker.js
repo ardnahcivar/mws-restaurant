@@ -158,10 +158,6 @@ async function withStore(store, type, callback) {
 
 async function get(key) {
 	let req;
-	// await withStore(objectStoreNames[0], 'readonly', store => {
-	// 	req = store.get(key);
-	// });
-	// return req.result;
 	return new Promise((resolve,reject) => {
 		withStore(objectStoreNames[0],'readonly',store => {
 			req = store.get(key);

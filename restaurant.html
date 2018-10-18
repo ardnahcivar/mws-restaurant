@@ -46,7 +46,7 @@
       <div class="restaurant-info">
         <h2 id="restaurant-name"></h2>
         <div class="heart-icon-box">
-          <i title= "Mark Favourite" id="heart-icon" class="far fa-heart gray" onclick="markFavourite()"></i>
+          <i title= "Mark Favourite" role="button" aria-label="click to mark favorite" id="heart-icon" class="far fa-heart gray" onclick="markFavourite()"></i>
         </div>
         <img id="restaurant-img">
         <div class="restaurant-tab">
@@ -68,27 +68,28 @@
 
 <form autocomplete="off" id="add-review" class="disp-none">
   <label for="reviewer-name">Name</label> 
-  <input id="reviewer-name" class="inp-text" type="text" name="reviewer-name">
+  <input role="text" id="reviewer-name" tabindex="0" class="inp-text" type="text" name="reviewer-name" required>
   <div class="rating-box">
     <label for="rating">Rating</label>
       <fieldset class="rating" id="rating">
-          <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
-          <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
-          <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
-          <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
-          <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
+          <input role="radio" aria-checked="false" type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
+          <input role="radio" aria-checked="false" type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
+          <input role="radio" aria-checked="false" type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
+          <input role="radio" aria-checked="false" type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
+          <input role="radio" aria-checked="false" type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
       </fieldset>
   </div>
   <div class="comments-box">
     <label for="comments">Comments</label>
-    <textarea name="comments" id="comments" cols="30" rows="10"></textarea>
+    <textarea role="textbox" name="comments" id="comments" cols="30" rows="10" required></textarea>
   </div>
-  <button type="button" id="add-review-btn" onclick="addRestoReview()">Add a review</button>
+  <button title="close the review form" role="button" aria-label="cancel a  review" type="button" id="cancel-review" onclick="closeReviewForm()" >X</button>
+  <button role="button" aria-label="add a review" type="button" id="add-review-btn" onclick="addRestoReview()">Add a review</button>
 </form>
 
   <!-- Beginning footer -->
   <footer class="footer" role="contentinfo">
-    Copyright (c) 2018 <a href="/"><strong>&nbsp Restaurant Reviews &nbsp</strong></a> All Rights Reserved.
+    Copyright (c) 2018 <a href="/"><strong style="color:white;text-decoration: none">&nbsp Restaurant Reviews &nbsp</strong></a> All Rights Reserved.
   </footer>
   <!-- End footer -->
   <!-- Beginning scripts -->

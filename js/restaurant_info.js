@@ -47,33 +47,6 @@ iDB = (event) => {
  */
 document.addEventListener('DOMContentLoaded', (event) => { });
 
-/**
- * Initialize leaflet map
- */
-// initMap = () => {
-//   fetchRestaurantFromURL((error, restaurant) => {
-//     if (error) { // Got an error!
-//       console.error(error);
-//     } else {
-//       self.newMap = L.map('map', {
-//         center: [restaurant.latlng.lat, restaurant.latlng.lng],
-//         zoom: 30,
-//         scrollWheelZoom: false
-//       });
-//       L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.jpg70?access_token={mapboxToken}', {
-//         mapboxToken: 'pk.eyJ1IjoicmF2aWNoYW5kcmEtYmhhbmFnZSIsImEiOiJjamlndGl6ajIwbW0zM3FvODFwZWFoZ2ZqIn0.DCkNZCX48Zc-4tIXKS8krA',
-//         maxZoom: 18,
-//         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
-//         '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-//         'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-//         id: 'mapbox.streets'
-//       }).addTo(newMap);
-//       fillBreadcrumb();
-//       DBHelper.mapMarkerForRestaurant(self.restaurant, self.newMap);
-//     }
-//   });
-// }
-
 initMap = () => {
 	fetchRestaurantFromURL((error, restaurant) => {
 		if (error) { // Got an error!
@@ -132,6 +105,10 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
 
 	const cuisine = document.getElementById('restaurant-cuisine');
 	cuisine.innerHTML = restaurant.cuisine_type;
+
+	if(restaurant.is_favorite === 'true'){
+		document.getElementById('heart-icon').classList.add('fas');
+	}
 
 	// fill operating hours
 	if (restaurant.operating_hours) {
@@ -202,10 +179,9 @@ fillReviewsHTML = (reviews) => {
 	container.appendChild(title);
 
 	let review = document.createElement('div');
+	review.textContent = 'Add a Review';
 	review.className = 'review-add-icon';
-	review.onclick = () => {
-		document.getElementById('add-review').classList.toggle('disp-blk');
-	};
+	review.onclick = this.closeReviewForm;
 
 	let addReviewicon = document.createElement('i');
 	addReviewicon.title = 'Add a review';
@@ -254,15 +230,10 @@ createReviewHTML = (review) => {
 	rating.className = 'review-rated';
 	rating.innerHTML = `Rating: ${review.rating}`;
 	reviews.appendChild(rating);
-	// for(let i=0;i<review.rating;i++){
-	//   let span = document.createElement('span');
-	//   span.classList = ['fa fa-start checked'];
-	//   reviews.appendChild(span);
-	// }
 
 	const date = document.createElement('p');
 	date.className = 'review-date';
-	date.innerHTML = review.updatedAt;
+	date.innerHTML = new Date(review.updatedAt).toDateString();
 	reviews.appendChild(date);
 
 	li.appendChild(reviews);
@@ -338,12 +309,7 @@ addRestoReview = () => {
 				alert('ERROR In Adding review');
 			} else {
 				console.log(review);
-				let rateList = document.getElementsByName('rating');
-				document.getElementById('reviewer-name').value = null;
-				document.getElementById('comments').value = null;
-				for (let i = 0; i < rateList.length; i++) {
-					rateList[i].checked = false;
-				}
+				this.clearReviewForm();
 				document.getElementById('add-review').classList.toggle('disp-blk');
 				this.insertReview(review);
 				alert(`Successfully added ${review}`);
@@ -352,6 +318,15 @@ addRestoReview = () => {
 		});
 	} else {
 		alert('Please enter valid data');
+	}
+};
+
+clearReviewForm = () => {
+	let rateList = document.getElementsByName('rating');
+	document.getElementById('reviewer-name').value = null;
+	document.getElementById('comments').value = null;
+	for (let i = 0; i < rateList.length; i++) {
+		rateList[i].checked = false;
 	}
 };
 
@@ -368,7 +343,7 @@ rateIt = (e) => {
 };
 
 markFavourite = () => {
-	document.getElementById('heart-icon').classList.toggle('far');
+	document.getElementById('heart-icon').classList.toggle('ma');
 	document.getElementById('heart-icon').classList.toggle('fas');
 
 	DBHelper.markFavouriteRest(parseInt(getParameterByName('id')),
@@ -385,4 +360,9 @@ markFavourite = () => {
 insertReview = (review) => {
 	const ul = document.getElementById('reviews-list');	
 	ul.appendChild(this.createReviewHTML(review));
+};
+
+closeReviewForm = () => {
+	this.clearReviewForm();
+	document.getElementById('add-review').classList.toggle('disp-blk');
 };

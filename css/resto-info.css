@@ -25,6 +25,7 @@
     color: red;
 }
 
+
 #restaurant-img{
     width: 50vw;
     height:50vh;
@@ -135,14 +136,70 @@
 }   
 
 #add-review{
-    width: 40vw;
+    width: 30vw;
     margin: 0 auto;
 }
 .inp-text, #comments,#add-review-btn{
     display: block;
     margin: 0 auto;
     width: 100%;
+    border-radius: 10px;
 }
+
+.inp-text:focus, #comments:focus,#add-review-btn:focus{
+    outline: none;
+    box-shadow: 0 0 0 2px skyblue; 
+}
+
+button#add-review-btn {
+    width: 30%;
+    height: 2em;
+    display: inline-block;
+    float: right;
+    margin: 1em 1em;
+    border-radius: 3px;
+    text-transform: uppercase;
+    background: white;
+    border:2px solid skyblue;
+    color:skyblue;
+    font-weight: bolder;
+    box-shadow: -2px 8px 15px rgba(135, 206, 250, 0.2);
+}
+
+button#add-review-btn:hover{
+    box-shadow: -2px 8px 15px rgba(135, 206, 250, 0.3);
+}
+
+
+button#cancel-review {
+    display: inline-block;
+    float: right;
+    border-radius: 50%;
+    background: white;
+    height: 2em;
+    width: 2em;
+    margin: 1em auto;
+
+    background: #F44336;
+    border: 2px solid #F44336;
+}
+#cancel-review:focus{
+    outline: none;
+    border:2px solid #F44336;
+    box-shadow: 0px 3px 7px #F44336;
+}
+
+#cancel-review:hover{
+    outline: none;
+    border:2px solid #F44336;
+    color: white;
+}
+
+#reviewer-name{
+    height: 2em;
+    border-width: 1px;
+}
+
 
 .rating-box{
     display: flex;
@@ -153,9 +210,21 @@
 .review-add-icon{
     display: inline-block;
     cursor: pointer;
+    color:white;
+    background: #02B3E4;
+    text-transform: uppercase;
+    border-radius: 5px;
+    padding: 0.5em;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
 }
+
+.review-add-icon:hover{
+    box-shadow: -2px 10px 17px rgba(0, 0, 0, 0.3);
+}
+
 .review-add-icon i {
     font-size: 1.2em;
+    margin: 0 0.5em;
 }
 
 .disp-none{

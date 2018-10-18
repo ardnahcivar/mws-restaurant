@@ -164,7 +164,7 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
 createRestaurantHTML = (restaurant) => {
 	const li = document.createElement('li');
 	li.tabIndex = 0;
-	li.setAttribute('role', 'listitem');
+	li.setAttribute('role', 'button');
 	const image = document.createElement('img');
 	image.className = 'restaurant-img';
 	image.alt = `${restaurant.name}-picture`;
