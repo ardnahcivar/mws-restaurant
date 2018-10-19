@@ -1,9 +1,9 @@
 let restaurant;
 
 
-const dbName = 'resto-view';
-const version = 1;
-const objectStoreNames = ['restaurants'];
+// const dbName = 'resto-view';
+// const version = 1;
+// const objectStoreNames = ['restaurants'];
 
 navigator.serviceWorker.ready.then((registeration) => {
 	return registeration.sync.register('sendReviewData');
@@ -85,7 +85,7 @@ fetchRestaurantFromURL = (callback) => {
 				return;
 			}
 			fillRestaurantHTML();
-			this.fillBreadcrumb(restaurant);
+			// this.fillBreadcrumb(restaurant);
 			callback(null, restaurant);
 		});
 	}
@@ -315,7 +315,7 @@ addRestoReview = () => {
 				this.clearReviewForm();
 				document.getElementById('add-review').classList.toggle('disp-blk');
 				this.insertReview(review);
-				alert(`Successfully added ${review}`);
+				alert('Successfully added review');
 
 			}
 		});
@@ -355,7 +355,7 @@ markFavourite = () => {
 			if (error) {
 				alert('Error in mark favourite');
 			} else {
-				alert(`marked successfully ${restaurant}`);
+				alert('marked favorite successfully');
 			}
 		});
 };

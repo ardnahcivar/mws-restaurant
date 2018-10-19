@@ -47,10 +47,17 @@
     <!-- Google Maps -->
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBT3oY7Gg7TNAfPZ5WEraGFmWU1sTdomdA&libraries=places&callback=initMap"></script>
   <!-- End scripts -->
-    <!-- <script type="application/javascript" charset="utf-8" src="./app.min.js"></script> -->
-    <script type="application/javascript" charset="utf-8" src="./js/dbhelper.js"></script>
-    <script type="application/javascript" charset="utf-8" src="./js/main.js"></script>
-    <script type="application/javascript" charset="utf-8" src="./js/idb.js"></script>
+    <script type="application/javascript" charset="utf-8" src="./app.min.js"></script>
 </body>
-
+<script>
+    initMap = () => {
+        let loc = {
+        lat: 40.722216,
+        lng: -73.987501
+        };
+        map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 12,center: loc,scrollwheel: false });
+        // updateRestaurants();
+    };
+</script>
 </html>
