@@ -46,7 +46,7 @@ iDB = (event) => {
  * Initialize map as soon as the page is loaded.
  */
 document.addEventListener('DOMContentLoaded', (event) => {
-	this.initMap();
+	// this.initMap();
 });
 
 initMap = () => {
@@ -109,7 +109,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
 	const cuisine = document.getElementById('restaurant-cuisine');
 	cuisine.innerHTML = restaurant.cuisine_type;
 
-	if(restaurant.is_favorite === 'true'){
+	if (restaurant.is_favorite === 'true') {
 		document.getElementById('heart-icon').classList.add('fas');
 	}
 
@@ -361,7 +361,7 @@ markFavourite = () => {
 };
 
 insertReview = (review) => {
-	const ul = document.getElementById('reviews-list');	
+	const ul = document.getElementById('reviews-list');
 	ul.appendChild(this.createReviewHTML(review));
 };
 
