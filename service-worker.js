@@ -12,6 +12,7 @@ const urlsToCache = [
 	'/css/mobile.css',
 	'/css/resto-info.css',
 	'/data/restaurants.json',
+	'/restaurant.html'
 ];
 
 const idburls = [
@@ -45,7 +46,7 @@ self.addEventListener('fetch', function (event) {
 	}
 	else{
 		event.respondWith(
-			caches.match(event.request)
+			caches.match(event.request,{ignoreSearch:true})
 				.then(function (response) {
 					if (response) {
 						updateCache(event);
