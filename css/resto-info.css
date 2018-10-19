@@ -143,12 +143,17 @@
     display: block;
     margin: 0 auto;
     width: 100%;
-    border-radius: 10px;
+    border-radius: 5px;
+    padding: 0;
 }
 
 .inp-text:focus, #comments:focus,#add-review-btn:focus{
     outline: none;
-    box-shadow: 0 0 0 2px skyblue; 
+    box-shadow: 0 0 0 2px skyblue;
+    border-width: 0px;
+}
+#reviewer-name:focus{
+    border-width: 0px;
 }
 
 button#add-review-btn {

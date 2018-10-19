@@ -45,7 +45,9 @@ iDB = (event) => {
 /**
  * Initialize map as soon as the page is loaded.
  */
-document.addEventListener('DOMContentLoaded', (event) => { });
+document.addEventListener('DOMContentLoaded', (event) => {
+	this.initMap();
+});
 
 initMap = () => {
 	fetchRestaurantFromURL((error, restaurant) => {
@@ -83,6 +85,7 @@ fetchRestaurantFromURL = (callback) => {
 				return;
 			}
 			fillRestaurantHTML();
+			this.fillBreadcrumb(restaurant);
 			callback(null, restaurant);
 		});
 	}

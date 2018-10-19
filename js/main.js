@@ -8,7 +8,7 @@ const objectStoreNames = ['restaurants','reviews'];
 bootApplication = () => {
 	fetchNeighborhoods();
 	fetchCuisines();
-	// updateRestaurants();	
+	updateRestaurants();	
 };
 
 iDB = (event) => {

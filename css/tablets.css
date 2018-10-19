@@ -59,3 +59,11 @@ body main{
     position: inherit;
     transform: none;
 }
+
+#rating{
+    border-width: 0px;
+}
+
+#add-review{
+    width: 60vw;
+}
