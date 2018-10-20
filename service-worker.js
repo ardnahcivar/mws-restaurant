@@ -12,7 +12,8 @@ const urlsToCache = [
 	'/css/mobile.css',
 	'/css/resto-info.css',
 	'/data/restaurants.json',
-	'/restaurant.html'
+	'/restaurant.html',
+	'/index.html'
 ];
 
 const idburls = [
@@ -46,53 +47,70 @@ self.addEventListener('fetch', function (event) {
 	}
 	else{
 		event.respondWith(
-			caches.match(event.request,{ignoreSearch:true})
-				.then(function (response) {
-					if (response) {
-						updateCache(event);
+			caches.open(CACHE_NAME).then(function(cache) {
+				return cache.match(event.request).then(function (response) {
+					if(response){
 						return response;
-					}
-		
-					if (event.request.url.indexOf(idburls[0]) > 0 || event.request.url.indexOf(idburls[2]) > 0) {
-						let fetchReq = event.request.clone();
-						return fetch(fetchReq).then(function (response) {
-							if (!response || response.status != 200) {
-								return response;
-							}
-							let responseToCache = response.clone();
-							caches.open(CACHE_NAME)
-								.then(function (cache) {
-									responseToCache.json().then((data) => {
-										self.clients.matchAll().then(function (clients) {
-											clients.forEach(function (client) {
-												client.postMessage({
-													msg: data,
-													url: event.request.url
+					}else{
+						if(event.request.url.indexOf(idburls[0]) > 0 || event.request.url.indexOf(idburls[2]) > 0) {
+							let fetchReq = event.request.clone();
+							return fetch(fetchReq).then(function (response) {
+								if (!response || response.status != 200) {
+									return response;
+								}
+								let responseToCache = response.clone();
+								caches.open(CACHE_NAME)
+									.then(function (cache) {
+										responseToCache.json().then((data) => {
+											self.clients.matchAll().then(function (clients) {
+												clients.forEach(function (client) {
+													client.postMessage({
+														msg: data,
+														url: event.request.url
+													});
 												});
 											});
 										});
 									});
-								});
-							return response;
-						}).catch((error) => {
+								return response;
+							}).catch((error) => {
 							//in offline 
-							return new Promise((resolve, reject) => {
-								get(event.request.url)
-									.then((val) => {
-										return resolve(new Response(JSON.stringify(val), { 'status': 200,headers:{'Content-Type':'application/json'}}));
-									});
-							}
-							, (error) => {
-								reject(error);
+								return new Promise((resolve, reject) => {
+									get(event.request.url)
+										.then((val) => {
+											return resolve(new Response(JSON.stringify(val), { 'status': 200,headers:{'Content-Type':'application/json'}}));
+										});
+								}
+								, (error) => {
+									reject(error);
+								});
 							});
-						});
+						}else{
+							return fetch(event.request).then(function(response) {
+								cache.put(event.request, response.clone());
+								return response;
+							});
+						}
 					}
-					return updateCache(event);
-				})
+					
+				}).catch(function(error){
+					return cache.match('/offline.html');
+				});
+			})
 		);
+		
 	}
 });
 
+self.addEventListener('message',(event) => {
+	reviewFormData = event.data;
+});
+
+self.addEventListener('sync', (event) => {
+	if(event.tag == 'sendReviewData'){
+		sendReviewsServer(event);
+	}
+} );
 
 self.addEventListener('activate', function (event) {
 	event.waitUntil(
@@ -206,13 +224,3 @@ async function sendReviewsServer(){
 		};
 	});
 }
-
-self.addEventListener('message',(event) => {
-	reviewFormData = event.data;
-});
-
-self.addEventListener('sync', (event) => {
-	if(event.tag == 'sendReviewData'){
-		sendReviewsServer(event);
-	}
-} );

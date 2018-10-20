@@ -80,7 +80,7 @@ initMap = () => {
  * Get current restaurant from page URL.
  */
 fetchRestaurantFromURL = (callback) => {
-	if (self.restaurant) { // restaurant already fetched!
+	if (self.restaurant) { // restaurant already fetched!-
 		callback(null, self.restaurant);
 		return;
 	}
@@ -144,35 +144,36 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
  */
 fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => {
 	const hours = document.getElementById('restaurant-hours');
+	if(document.querySelector('.table-head') == null){
+		const tablehead = document.createElement('tr');
+		tablehead.className = 'table-head';
 
-	const tablehead = document.createElement('tr');
-	tablehead.className = 'table-head';
-
-	const dayhead = document.createElement('th');
-	dayhead.innerHTML = 'Day';
+		const dayhead = document.createElement('th');
+		dayhead.innerHTML = 'Day';
 
 
-	tablehead.appendChild(dayhead);
+		tablehead.appendChild(dayhead);
 
-	const dayhead1 = document.createElement('th');
-	dayhead1.innerHTML = 'Status';
+		const dayhead1 = document.createElement('th');
+		dayhead1.innerHTML = 'Status';
 
-	tablehead.appendChild(dayhead1);
+		tablehead.appendChild(dayhead1);
 
-	hours.appendChild(tablehead);
+		hours.appendChild(tablehead);
 
-	for (let key in operatingHours) {
-		const row = document.createElement('tr');
+		for (let key in operatingHours) {
+			const row = document.createElement('tr');
 
-		const day = document.createElement('td');
-		day.innerHTML = key;
-		row.appendChild(day);
+			const day = document.createElement('td');
+			day.innerHTML = key;
+			row.appendChild(day);
 
-		const time = document.createElement('td');
-		time.innerHTML = operatingHours[key];
-		row.appendChild(time);
+			const time = document.createElement('td');
+			time.innerHTML = operatingHours[key];
+			row.appendChild(time);
 
-		hours.appendChild(row);
+			hours.appendChild(row);
+		}
 	}
 };
 
