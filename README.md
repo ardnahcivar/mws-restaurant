@@ -14,8 +14,6 @@ Ravichandra Bhanage
 
 [![license](https://img.shields.io/badge/license-MIT-blue.svg?longCache=true&style=for-the-badge)](https://choosealicense.com/)
 
-[![JavaScript Style Guide](https://cdn.rawgit.com/standard/standard/master/badge.svg)](https://github.com/standard/standard)
-
 ## Table of Contents <!-- omit in toc -->
 
 - [Description](#description)
@@ -33,6 +31,7 @@ I was awarded a scholarship to this Nanodegree program after completing the [Goo
 See the [Udacity Mobile Web Specialist Nanodegree Certificate](https://confirm.udacity.com/HXHQJZFU)
 
 In this Nanodegree program, I built a restaurant reviews PWA that displays restaurant locations and info. The app provides offline access through the Service Worker, IndexedDB, and web manifest files. Users can add favorites and reviews for restaurants. If changes are made offline, they sync to the web server when network access is restored.
+ Here are some the screen's of the web application.
 
 &nbsp;&nbsp;![Screenshots of restaurant reviews app homepage on mobile](info/img/initial.png)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 ![Screenshot of restaurant reviews app homepage on mobile](info/img/second.png)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
