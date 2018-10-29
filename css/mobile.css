@@ -63,6 +63,7 @@
 #restaurant-name{
     margin: 0;  
     display: inline;
+    padding: 0;
 }
 
 #restaurant-img{
@@ -70,6 +71,7 @@
     width: 85vw;
     height: 25vh;
     margin: 0 auto;
+    padding: 1em 0;
 }
 .restaurant-tab{
     height: 25vh;
