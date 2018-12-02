@@ -27,7 +27,7 @@ Ravichandra Bhanage
 ## Description
 
 Mobile Web Specialists are trained in building **Progressive Web Apps** (PWAs, see [Google](https://developers.google.com/web/progressive-web-apps/) and [Mozilla](https://developer.mozilla.org/en-US/docs/Web/Apps/Progressive)). PWAs are like a combination of web apps and native apps, improving on the best features of each. I learned how to build PWAs in the [Udacity Google Mobile Web Specialist Nanodegree program](https://www.udacity.com/course/mobile-web-specialist-nanodegree--nd024).
-I was awarded a scholarship to this Nanodegree program after completing the [Google India Challenge Scholarship](https://in.udacity.com/google-india-scholarships) Udacity challenge course, intermediate web developer track, in the top 10% of 10,000 students. Materials from the challenge course are available in my [udacity-google repo](https://github.com/br3ndonland/udacity-google).
+I was awarded a scholarship to this Nanodegree program after completing the [Google India Challenge Scholarship](https://in.udacity.com/google-india-scholarships) Udacity challenge course, intermediate web developer track, in the top 10% of 10,000 students.
 
 See the [Udacity Mobile Web Specialist Nanodegree Certificate](https://confirm.udacity.com/HXHQJZFU)
 
